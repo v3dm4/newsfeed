@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { Link } from '@reach/router'
 
-export const NavBar: React.FC  = () => {
+const NavBar: React.FC  = () => {
     return (
         <nav>
             <Link to="/">На главную</Link>
@@ -10,3 +10,5 @@ export const NavBar: React.FC  = () => {
         </nav>
     )
 }
+
+export default NavBar

@@ -2,25 +2,30 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Router } from '@reach/router'
-import { NavBar } from './components/layout/NavBar'
+import NavBar from './components/layout/NavBar'
+import ErrorBoundary from './components/ErrorBoundary'
 
-import { MainPage } from './pages/main'
-import { NewsPage } from './pages/news'
-import { ProfilePage } from './pages/profile'
-import { LoginPage } from './pages/login'
+const MainPage = React.lazy(() => import('./pages/main'))
+const NewsPage = React.lazy(() => import('./pages/news'))
+const ProfilePage = React.lazy(() => import('./pages/profile'))
+const LoginPage = React.lazy(() => import('./pages/login'))
 
 class App extends Component {
   render() {
     return (
-      <div className="container">
-				<NavBar />
-        <Router>
-          <MainPage path="/" />
-          <NewsPage path="/news" />
-          <ProfilePage path="/profile" />
-          <LoginPage path="/login" />
-        </Router>  
-			</div>	
+      <ErrorBoundary>
+        <div className="container">
+          <NavBar />
+          <React.Suspense fallback={<div>...Loading</div>}>
+            <Router>
+              <MainPage path="/" />
+              <NewsPage path="/news" />
+              <ProfilePage path="/profile" />
+              <LoginPage path="/login" />
+            </Router>
+          </React.Suspense>
+        </div>
+      </ErrorBoundary>
     );
   }
 }

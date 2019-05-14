@@ -1,8 +1,7 @@
 import * as React from 'react'
-
 import { Link } from '@reach/router'
 
-const NavBar: React.FC  = () => {
+const NavBar: React.FC = () => {
     return (
         <nav>
             <Link to="/">На главную</Link>

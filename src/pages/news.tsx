@@ -1,14 +1,14 @@
 import * as React from 'react'
 import { RouteComponentProps } from '@reach/router'
-import { NewsState } from '../store/types/news';
-import { useSelector, useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
+import { RootState } from '../store/reducers'
+import { bindActionCreators } from 'redux'
+import * as NewsActions from '../store/actions/news'
 
-const NewsPage: React.FC<RouteComponentProps> = (): JSX.Element => {
-    const dispatch = useDispatch()
-
+const NewsPage: React.FC<RouteComponentProps> = (props: any): JSX.Element => {
     React.useEffect(() => {
         debugger
-        dispatch({ type: 'news/get/request' })
+        props.getNews()
     }, [])
 
     return (
@@ -18,4 +18,7 @@ const NewsPage: React.FC<RouteComponentProps> = (): JSX.Element => {
     )
 }
 
-export default NewsPage
+export default connect(
+    (store: RootState) => store.news,
+    dispatch => bindActionCreators({ getNews: NewsActions.getNews }, dispatch)
+)(NewsPage)

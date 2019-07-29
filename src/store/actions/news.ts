@@ -13,6 +13,7 @@ export const getNews = (params: NewsParams) => async (
 ) => {
   dispatch({ type: 'news/get/request' })
   try {
+    debugger
     const { articles, totalResults } = await api.getNews(params)
     debugger
     dispatch({ type: 'news/get/resolve', payload: {} })

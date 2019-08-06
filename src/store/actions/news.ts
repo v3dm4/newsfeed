@@ -1,3 +1,4 @@
+import { getNews as getNewsRequest } from './../../api/index';
 import { NewsParams, API } from "../../api";
 import { Dispatch } from "react";
 import { NewsAction } from "../types/news";
@@ -9,11 +10,10 @@ import { RootState } from "../reducers";
 export const getNews = (params: NewsParams) => async (
   dispatch: Dispatch<NewsAction>,
   getState: () => RootState,
-  api: API
+  api: API  
 ) => {
   dispatch({ type: 'news/get/request' })
   try {
-    debugger
     const { articles, totalResults } = await api.getNews(params)
     debugger
     dispatch({ type: 'news/get/resolve', payload: {} })

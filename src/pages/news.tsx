@@ -6,9 +6,9 @@ import { bindActionCreators } from 'redux'
 import * as NewsActions from '../store/actions/news'
 
 const NewsPage: React.FC<RouteComponentProps> = (props: any): JSX.Element => {
+    const { getNews } = props
     React.useEffect(() => {
-        debugger
-        props.getNews()
+        getNews()
     }, [])
 
     return (

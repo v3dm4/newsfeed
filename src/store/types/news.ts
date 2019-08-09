@@ -1,8 +1,8 @@
 export interface NewsElement {
   id: string
   source: {
-      id: null
-      name: string
+    id: null
+    name: string
   }
   author: string
   title: string
@@ -16,11 +16,13 @@ export interface NewsElement {
 export interface NewsState {
   loading: boolean
   ids: string[]
-  articles: NewsElement[]
-  totalResults: number
+  articles: {
+    [key: string]: NewsElement
+  }
+  page: number
 }
 
-export type NewsAction = 
+export type NewsAction =
   | { type: 'news/get/request' }
-  | { type: 'news/get/resolve', payload: Partial<NewsState> }
-  | { type: 'news/get/reject', payload: Error }
+  | { type: 'news/get/resolve'; payload: Partial<NewsState> }
+  | { type: 'news/get/reject'; payload: Error }

@@ -4,10 +4,10 @@ import { Router } from '@reach/router'
 import NavBar from './components/layout/NavBar'
 import ErrorBoundary from './components/ErrorBoundary'
 
-const MainPage = React.lazy(() => import('./pages/main'))
-const NewsPage = React.lazy(() => import('./pages/news'))
-const ProfilePage = React.lazy(() => import('./pages/profile'))
-const LoginPage = React.lazy(() => import('./pages/login'))
+const MainPage = React.lazy(() => import('./pages/Main'))
+const NewsPage = React.lazy(() => import('./pages/News'))
+const ProfilePage = React.lazy(() => import('./pages/Profile'))
+const LoginPage = React.lazy(() => import('./pages/Login'))
 
 class App extends Component {
   render() {

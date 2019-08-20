@@ -4,12 +4,22 @@ import { connect } from 'react-redux'
 import { RootState } from '../store/reducers'
 import { bindActionCreators } from 'redux'
 import * as NewsActions from '../store/actions/news'
+import { NewsState } from '../store/types/news';
 
-const NewsPage: React.FC<RouteComponentProps> = (props: any): JSX.Element => {
-    const { getNews } = props
+type StateProps = NewsState
+
+type DispatchProps = {
+    getNews: typeof NewsActions.getNews
+}
+
+type Props = RouteComponentProps<{ pageId: string }> & StateProps & DispatchProps
+
+const NewsPage: React.SFC<Props> = (props): JSX.Element => {
+    const { getNews, page } = props
+
     React.useEffect(() => {
-        getNews()
-    }, [])
+        getNews({ page: Number(page) })
+    }, [page])
 
     return (
         <div>

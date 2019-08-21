@@ -19,7 +19,7 @@ export interface NewsState {
   articles: {
     [key: string]: NewsElement
   }
-  page: number
+  total: number
 }
 
 export type NewsAction =

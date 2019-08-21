@@ -14,19 +14,22 @@ export const getNews = (params: NewsParams) => async (
   try {
     const { articles, totalResults } = await api.getNews(params)
     const initialModel: {
+      ids: string[]
       articles: {
         [key: string]: NewsElement
       }
-      page: number
+      total: number
     } = {
+      ids: [],
       articles: {},
-      page: 1
+      total: 0
     }
     const payload = {
-      page: Math.floor(totalResults / 10) + 1,
+      total: Math.floor(totalResults / 10) + 1,
       ...articles.reduce((result: any, currVal) => {
         const { source, publishedAt } = currVal as any
         const id = `${source.name}|||${publishedAt}`
+        result.ids.push(id)
         result.articles[id] = { id, ...currVal }
         return result
       }, initialModel)

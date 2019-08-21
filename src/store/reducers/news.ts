@@ -4,7 +4,7 @@ export const initialState: NewsState = {
   loading: false,
   ids: [],
   articles: {},
-  page: 1
+  total: 0
 }
 
 const news = (state = initialState, action: NewsAction): NewsState => {

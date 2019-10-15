@@ -1,11 +1,16 @@
 import { createStore, applyMiddleware, compose } from 'redux'
-import thunk, { ThunkMiddleware } from 'redux-thunk'
-import rootReducer, { RootState, RootAction } from './reducers/index'
+import createSagaMiddleware, { SagaMiddleware } from 'redux-saga'
+import rootReducer from './reducers/index'
+import { rootSaga } from './sagas/root'
 import * as API from '../api/index'
 
-const middleware = [thunk.withExtraArgument(API) as ThunkMiddleware<RootState, RootAction, API.API>]
+const sagaMiddleware: SagaMiddleware = createSagaMiddleware()
+
+const middlewares = [sagaMiddleware]
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(...middleware)))
+export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(...middlewares)))
+
+sagaMiddleware.run(rootSaga)
  

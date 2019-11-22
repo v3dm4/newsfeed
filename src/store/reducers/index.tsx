@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import newsReducer from './news'
-import { NewsActions } from '../actions/news'
+import { NewsActions } from '../types/news'
 
 const rootReducer = combineReducers({
 	news: newsReducer,

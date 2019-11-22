@@ -2,12 +2,15 @@ import { put, takeEvery, all, call } from 'redux-saga/effects'
 import { call as typedCall } from 'typed-redux-saga'
 import * as api from '../../api/index'
 import { NewsElement } from '../types/news'
-import { NewsActions } from '../actions/news'
+import * as types from '../actions/news/newsActionTypes'
+import * as newsActions from '../actions/news/news'
 import { SagaIterator } from 'redux-saga'
 
 export const delay = (ms: number) => new Promise(res => setTimeout(res, ms))
 
-export function* getNews(action: NewsActions): SagaIterator {
+export function* getNews(
+	action: ReturnType<typeof newsActions.getNews>
+): SagaIterator {
 	try {
 		const { articles, totalResults } = yield* typedCall(
 			api.getNews,
@@ -25,7 +28,6 @@ export function* getNews(action: NewsActions): SagaIterator {
 			total: 0,
 		}
 		const payload = {
-			total: Math.floor(totalResults / 10) + 1,
 			...articles.reduce((result: any, currVal: any) => {
 				const { source, publishedAt } = currVal as any
 				const id = `${source.name}|||${publishedAt}`
@@ -33,16 +35,17 @@ export function* getNews(action: NewsActions): SagaIterator {
 				result.articles[id] = { id, ...currVal }
 				return result
 			}, initialModel),
+			total: Math.floor(totalResults / 10) + 1,
 		}
 		yield call(delay, 2000)
-		yield put({ type: 'news/get/resolve', payload })
+		yield put(newsActions.resolveGetNews(payload))
 	} catch (err) {
-		yield put({ type: 'news/get/reject', payload: err })
+		yield put(newsActions.rejectGetNews(err))
 	}
 }
 
 export function* watchIncrementAsync() {
-	yield takeEvery('news/get/request', getNews)
+	yield takeEvery(types.NEWS_GET_REQUEST, getNews)
 }
 
 export function* rootSaga() {

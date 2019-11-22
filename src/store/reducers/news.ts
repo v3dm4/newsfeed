@@ -1,5 +1,5 @@
-import { NewsState } from '../types/news'
-import { NewsActions } from '../actions/news'
+import { NewsState, NewsActions } from '../types/news'
+import * as types from '../actions/news/newsActionTypes'
 
 export const initialState: NewsState = {
 	loading: false,
@@ -10,18 +10,18 @@ export const initialState: NewsState = {
 
 const news = (state = initialState, action: NewsActions): NewsState => {
 	switch (action.type) {
-		case 'news/get/request':
+		case types.NEWS_GET_REQUEST:
 			return {
 				...state,
 				loading: true,
 			}
-		case 'news/get/resolve':
+		case types.NEWS_GET_RESOLVE:
 			return {
 				...state,
 				loading: false,
 				...action.payload,
 			}
-		case 'news/get/reject':
+		case types.NEWS_GET_REJECT:
 			return {
 				...state,
 				loading: false,

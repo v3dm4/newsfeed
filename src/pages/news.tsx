@@ -3,39 +3,32 @@ import { RouteComponentProps } from '@reach/router'
 import { connect } from 'react-redux'
 import { RootState } from '../store/reducers'
 import { bindActionCreators } from 'redux'
-import * as NewsActions from '../store/actions/news'
+import * as newsActions from '../store/actions/news/news'
 import { NewsState } from '../store/types/news'
 
 type StateProps = NewsState
 
 type DispatchProps = {
-	getNews: typeof NewsActions.getNews
+	getNews: typeof newsActions.getNews
 }
 
 type Props = RouteComponentProps<{ page: string }> & StateProps & DispatchProps
 
-const changePage = (
-	currentPage: number | string | undefined,
-	offset: number,
-	total: number
-) => {}
-
 const NewsPage: React.SFC<Props> = (props): JSX.Element => {
-	const { getNews, page, total, loading, ids, articles } = props
+	const { getNews, page, total, loading, ids, articles, navigate } = props
 
 	React.useEffect(() => {
 		getNews({ page: Number(page) })
 	}, [page])
 
-	const nextPage = React.useCallback(() => changePage(page, 1, total), [
-		page,
-		total,
-	])
-
-	const prevPage = React.useCallback(() => changePage(page, -1, total), [
-		page,
-		total,
-	])
+	const changePage = React.useCallback(
+		async (amount: number) => {
+			if (props.page && navigate) {
+				navigate(`/news/${Number(props.page) + amount}`)
+			}
+		},
+		[page, total]
+	)
 
 	if (loading) return <div>Loading...</div>
 
@@ -54,13 +47,19 @@ const NewsPage: React.SFC<Props> = (props): JSX.Element => {
 			})}
 			<ul>
 				<li>
-					<button type='button'>←</button>
+					<button
+						type='button'
+						onClick={() => changePage(-1)}
+						disabled={Number(page) <= 1}
+					>
+						←
+					</button>
 				</li>
 				<li>{page}</li>
 				<li>
 					<button
 						type='button'
-						onClick={nextPage}
+						onClick={() => changePage(1)}
 						disabled={Number(page) >= total}
 					>
 						→
@@ -73,5 +72,5 @@ const NewsPage: React.SFC<Props> = (props): JSX.Element => {
 
 export default connect(
 	(store: RootState) => store.news,
-	dispatch => bindActionCreators({ getNews: NewsActions.getNews }, dispatch)
+	dispatch => bindActionCreators({ getNews: newsActions.getNews }, dispatch)
 )(NewsPage)

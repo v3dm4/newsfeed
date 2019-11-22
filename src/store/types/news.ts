@@ -1,4 +1,5 @@
-import { NewsParams } from '../../api'
+import { InferValueTypes } from '.'
+import * as newsActions from '../actions/news/news'
 
 export interface NewsElement {
 	id: string
@@ -23,3 +24,5 @@ export interface NewsState {
 	}
 	total: number
 }
+
+export type NewsActions = ReturnType<InferValueTypes<typeof newsActions>>

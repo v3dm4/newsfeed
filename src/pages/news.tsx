@@ -5,6 +5,21 @@ import { RootState } from '../store/reducers'
 import { bindActionCreators } from 'redux'
 import * as newsActions from '../store/actions/news/news'
 import { NewsState } from '../store/types/news'
+import { NewsCard } from '../components/news/NewsCard'
+import styled from 'styled-components'
+import AutoSizer from 'react-virtualized-auto-sizer'
+import { FixedSizeList as List } from 'react-window'
+
+const NewsContainer = styled.div`
+	width: 100%;
+	max-width: 760px;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: calc(100vh - 50px);
+`
 
 type StateProps = NewsState
 
@@ -30,43 +45,34 @@ const NewsPage: React.SFC<Props> = (props): JSX.Element => {
 		[page, total]
 	)
 
-	if (loading) return <div>Loading...</div>
+	const RowElement = ({ index, style }: { index: number; style: object }) => {
+		const id = ids[index]
+		const article = articles[id]
+		return <NewsCard article={article} style={style} />
+	}
 
 	return (
-		<div>
-			{ids.map(id => {
-				const { title, description, publishedAt, source, url } = articles[id]
-				return (
-					<div key={id}>
-						<span>{publishedAt}</span>
-						<span>{source.name}</span>
-						<span>{title}</span>
-						<span>{description}</span>
-					</div>
-				)
-			})}
-			<ul>
-				<li>
-					<button
-						type='button'
-						onClick={() => changePage(-1)}
-						disabled={Number(page) <= 1}
-					>
-						←
-					</button>
-				</li>
-				<li>{page}</li>
-				<li>
-					<button
-						type='button'
-						onClick={() => changePage(1)}
-						disabled={Number(page) >= total}
-					>
-						→
-					</button>
-				</li>
-			</ul>
-		</div>
+		<NewsContainer>
+			{loading ? (
+				<div>Loading...</div>
+			) : (
+				<AutoSizer style={{ height: '100%', width: '100%' }}>
+					{({ height, width }) => (
+						<List
+							itemKey={(index: number) => {
+								return ids[index]
+							}}
+							height={height}
+							width={width}
+							itemCount={ids.length}
+							itemSize={600}
+						>
+							{RowElement}
+						</List>
+					)}
+				</AutoSizer>
+			)}
+		</NewsContainer>
 	)
 }
 

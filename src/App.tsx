@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './App.css'
-import { Router, Redirect } from '@reach/router'
+import { Router } from '@reach/router'
 import { NavBar } from './components/layout/NavBar'
 import { Content } from './components/layout/Content'
 import ErrorBoundary from './components/ErrorBoundary'
@@ -20,8 +20,7 @@ class App extends Component {
 						<Content>
 							<Router>
 								<MainPage path='/' />
-								<Redirect from='/news' to='/news/1' noThrow />
-								<NewsPage path='/news/:page' />
+								<NewsPage path='/news' />
 								<ProfilePage path='/profile' />
 								<LoginPage path='/login' />
 							</Router>

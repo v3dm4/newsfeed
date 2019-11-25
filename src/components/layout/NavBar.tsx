@@ -17,7 +17,7 @@ export const NavBar: React.FC = () => {
 	return (
 		<Nav>
 			<Link to='/'>На главную</Link>
-			<Link to='/news/1'>Новости</Link>
+			<Link to='/news'>Новости</Link>
 			<Link to='/login'>Логин</Link>
 			<Link to='/profile'>Профиль</Link>
 		</Nav>

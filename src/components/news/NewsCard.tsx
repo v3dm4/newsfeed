@@ -5,6 +5,7 @@ import { Img } from '../ui/Img'
 
 const CardContainer = styled.div`
 	width: 100%;
+	max-width: 760px;
 	height: 600px;
 	overflow: hidden;
 `

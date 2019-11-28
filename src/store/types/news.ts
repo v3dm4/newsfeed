@@ -3,17 +3,17 @@ import * as newsActions from '../actions/news/news'
 
 export interface NewsElement {
 	id: string
-	source: {
+	source?: {
 		id: null
 		name: string
 	}
-	author: string
+	author?: string
 	title: string
 	description: string
-	url: string
+	url?: string
 	urlToImage: string
 	publishedAt: string
-	content: string
+	content?: string
 }
 
 export interface NewsState {

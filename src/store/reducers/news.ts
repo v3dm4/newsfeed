@@ -3,8 +3,19 @@ import * as types from '../actions/news/newsActionTypes'
 
 export const initialState: NewsState = {
 	loading: false,
-	ids: [],
-	articles: {},
+	ids: ['123'],
+	articles: {
+		'123': {
+			id: '123',
+			title:
+				'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, ipsam.',
+			description:
+				'Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit illum nesciunt eum earum adipisci veritatis, omnis vero fugiat, consequatur, ratione voluptas nihil. Modi laudantium placeat repellendus iure eveniet eaque a?',
+			urlToImage:
+				'https://avatars.mds.yandex.net/get-pdb/216365/eb43844b-51d6-41a0-86c0-0f3c47da5b48/s375',
+			publishedAt: '123',
+		},
+	},
 	total: 0,
 }
 

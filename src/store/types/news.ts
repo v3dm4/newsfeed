@@ -1,4 +1,4 @@
-import { InferValueTypes } from '.'
+import { InferValueTypes } from '../../utils/helpers'
 import * as newsActions from '../actions/news/news'
 
 export interface NewsElement {

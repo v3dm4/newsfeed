@@ -49,7 +49,6 @@ const NewsPage: React.SFC<Props> = (props): JSX.Element => {
 		startIndex: number,
 		stopIndex: number
 	): Promise<void> => {
-		debugger
 		setPage(page + 1)
 	}
 

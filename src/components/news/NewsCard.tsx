@@ -17,16 +17,7 @@ interface NewsCardProps {
 export const NewsCard: React.FC<NewsCardProps &
 	HTMLAttributes<HTMLDivElement>> = (props): JSX.Element => {
 	const {
-		article: {
-			source,
-			author,
-			title,
-			description,
-			url,
-			urlToImage,
-			publishedAt,
-			content,
-		},
+		article: { title, description, urlToImage, publishedAt },
 	} = props
 	return (
 		<CardContainer style={props.style}>

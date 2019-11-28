@@ -1,4 +1,4 @@
-import React, { ImgHTMLAttributes, HTMLAttributes } from 'react'
+import React, { ImgHTMLAttributes } from 'react'
 import styled from 'styled-components'
 
 const StyledImg = styled.img`

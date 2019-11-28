@@ -1,11 +1,9 @@
-import { put, takeEvery, call, select } from 'redux-saga/effects'
+import { put, takeEvery, select } from 'redux-saga/effects'
 import { call as typedCall } from 'typed-redux-saga'
 import * as api from '../../api/index'
-import { NewsElement } from '../types/news'
 import * as types from '../actions/news/newsActionTypes'
 import * as newsActions from '../actions/news/news'
 import { SagaIterator } from 'redux-saga'
-import { delay } from '../../utils/helpers'
 
 export function* getNews(
 	action: ReturnType<typeof newsActions.getNews>

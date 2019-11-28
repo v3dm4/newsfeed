@@ -36,7 +36,6 @@ const NewsPage: React.SFC<Props> = (props): JSX.Element => {
 	const { getNews, total, ids, articles } = props
 
 	const [page, setPage] = React.useState(1)
-	const listRef = React.useRef()
 
 	React.useEffect(() => {
 		getNews({ page: Number(page) })

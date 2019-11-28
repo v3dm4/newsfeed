@@ -25,7 +25,7 @@ type DispatchProps = {
 	getNews: typeof newsActions.getNews
 }
 
-type Props = RouteComponentProps<{ page: string }> & StateProps & DispatchProps
+type Props = RouteComponentProps & StateProps & DispatchProps
 
 const NewsPage: React.SFC<Props> = (props): JSX.Element => {
 	const { getNews, total, loading, ids, articles } = props

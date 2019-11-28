@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
 import { Router } from '@reach/router'
-import { NavBar } from './components/layout/NavBar'
+import { NavHOC as NavBar } from './components/layout/Nav/NavBar'
 import { Content } from './components/layout/Content'
 import ErrorBoundary from './components/ErrorBoundary'
 

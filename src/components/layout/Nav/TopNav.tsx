@@ -16,6 +16,10 @@ const TextLink = styled(Link)`
 	padding: 15px;
 	text-transform: uppercase;
 	transition: color 200ms ease;
+
+	:hover {
+		color: #000;
+	}
 `
 
 export const TopNavBar: React.FC = (): JSX.Element => {

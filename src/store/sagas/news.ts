@@ -1,4 +1,4 @@
-import { put, takeEvery, call } from 'redux-saga/effects'
+import { put, takeEvery, call, select } from 'redux-saga/effects'
 import { call as typedCall } from 'typed-redux-saga'
 import * as api from '../../api/index'
 import { NewsElement } from '../types/news'
@@ -11,21 +11,11 @@ export function* getNews(
 	action: ReturnType<typeof newsActions.getNews>
 ): SagaIterator {
 	try {
+		const { news } = yield select()
 		const { articles, totalResults } = yield* typedCall(
 			api.getNews,
 			action.payload
 		)
-		const initialModel: {
-			ids: string[]
-			articles: {
-				[key: string]: NewsElement
-			}
-			total: number
-		} = {
-			ids: [],
-			articles: {},
-			total: 0,
-		}
 		const payload = {
 			...articles.reduce((result: any, currVal: any) => {
 				const { source, publishedAt } = currVal as any
@@ -33,10 +23,9 @@ export function* getNews(
 				result.ids.push(id)
 				result.articles[id] = { id, ...currVal }
 				return result
-			}, initialModel),
-			total: Math.floor(totalResults / 10) + 1,
+			}, news),
+			total: totalResults,
 		}
-		yield call(delay, 2000)
 		yield put(newsActions.resolveGetNews(payload))
 	} catch (err) {
 		yield put(newsActions.rejectGetNews(err))

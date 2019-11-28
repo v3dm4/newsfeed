@@ -7,9 +7,14 @@ import * as newsActions from '../store/actions/news/news'
 import { NewsState } from '../store/types/news'
 import { NewsCard } from '../components/news/NewsCard'
 import styled from 'styled-components'
-import AutoSizer from 'react-virtualized-auto-sizer'
-import { FixedSizeList as List } from 'react-window'
-import InfiniteLoader from 'react-window-infinite-loader'
+import {
+	AutoSizer,
+	List,
+	InfiniteLoader,
+	Index,
+	IndexRange,
+} from 'react-virtualized'
+import 'react-virtualized/styles.css'
 
 const NewsContainer = styled.div`
 	width: 100%;
@@ -28,36 +33,60 @@ type DispatchProps = {
 type Props = RouteComponentProps & StateProps & DispatchProps
 
 const NewsPage: React.SFC<Props> = (props): JSX.Element => {
-	const { getNews, total, loading, ids, articles } = props
+	const { getNews, total, ids, articles } = props
 
 	const [page, setPage] = React.useState(1)
+	const listRef = React.useRef()
 
 	React.useEffect(() => {
 		getNews({ page: Number(page) })
 	}, [page])
 
-	// const changePage = React.useCallback(
-	// 	async (amount: number) => {
-	// 		if (props.page && navigate) {
-	// 			navigate(`/news/${Number(props.page) + amount}`)
-	// 		}
-	// 	},
-	// 	[page, total]
-	// )
-
-	const loadFunc = async (
-		startIndex: number,
-		stopIndex: number
-	): Promise<void> => {
+	const loadMoreHandler = async (params: IndexRange): Promise<void> => {
 		setPage(page + 1)
 	}
 
-	const RowElement = ({ index, style }: { index: number; style: object }) => {
+	const rowCount = ids.length < total ? ids.length + 1 : ids.length
+
+	const isRowLoaded = ({ index }: Index): boolean =>
+		!(ids.length < total) || index < ids.length
+
+	const rowRenderer = ({
+		index,
+		style,
+		key,
+	}: {
+		index: number
+		style: object
+		key: string
+	}) => {
+		if (!isRowLoaded({ index })) {
+			return (
+				<div
+					style={{
+						...style,
+						left: '50%',
+						transform: 'translateX(-50%)',
+						width: '100px',
+						height: '400px',
+						display: 'flex',
+						justifyContent: 'center',
+						alignItems: 'center',
+					}}
+					key={key}
+				>
+					Loading...
+				</div>
+			)
+		}
+
 		const id = ids[index]
 		const article = articles[id]
+
 		return (
 			<NewsCard
 				article={article}
+				key={key}
 				style={{ ...style, left: '50%', transform: 'translateX(-50%)' }}
 			/>
 		)
@@ -65,32 +94,30 @@ const NewsPage: React.SFC<Props> = (props): JSX.Element => {
 
 	return (
 		<NewsContainer>
-			{loading ? (
-				<div>Loading...</div>
-			) : (
-				<InfiniteLoader
-					isItemLoaded={index => index < ids.length}
-					loadMoreItems={loadFunc}
-					itemCount={ids.length < total ? ids.length + 10 : ids.length}
-				>
-					{({ onItemsRendered, ref }) => (
-						<List
-							itemKey={(index: number) => {
-								return ids[index]
-							}}
-							onItemsRendered={onItemsRendered}
-							ref={ref}
-							overscanCount={1}
-							height={720}
-							width={1920}
-							itemCount={ids.length}
-							itemSize={600}
-						>
-							{RowElement}
-						</List>
-					)}
-				</InfiniteLoader>
-			)}
+			<AutoSizer style={{ width: '100%', height: '100%' }}>
+				{({ height, width }) => (
+					<InfiniteLoader
+						isRowLoaded={isRowLoaded}
+						loadMoreRows={loadMoreHandler}
+						rowCount={5000}
+						threshold={4}
+					>
+						{({ onRowsRendered, registerChild }) => (
+							<List
+								{...ids}
+								overscanRowCount={7}
+								onRowsRendered={onRowsRendered}
+								ref={registerChild}
+								height={height}
+								width={width}
+								rowCount={rowCount}
+								rowHeight={400}
+								rowRenderer={rowRenderer}
+							></List>
+						)}
+					</InfiniteLoader>
+				)}
+			</AutoSizer>
 		</NewsContainer>
 	)
 }

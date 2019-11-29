@@ -27,6 +27,12 @@ const news = (state = initialState, action: NewsActions): NewsState => {
 				loading: false,
 				...action.payload,
 			}
+		case types.NEWS_CLEAR:
+			return {
+				...initialState,
+				ids: [],
+				articles: {},
+			}
 		default:
 			return state
 	}

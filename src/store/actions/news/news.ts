@@ -19,3 +19,8 @@ export const rejectGetNews = (error: Error) =>
 		type: types.NEWS_GET_REJECT,
 		payload: error,
 	}
+
+export const clearNews = () =>
+	<const>{
+		type: types.NEWS_CLEAR,
+	}

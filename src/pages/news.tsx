@@ -20,12 +20,13 @@ type StateProps = NewsState
 
 type DispatchProps = {
 	getNews: typeof newsActions.getNews
+	clearNews: typeof newsActions.clearNews
 }
 
 type Props = RouteComponentProps & StateProps & DispatchProps
 
 const NewsPage: React.SFC<Props> = (props): JSX.Element => {
-	const { getNews, total, ids, articles, loading } = props
+	const { getNews, clearNews, total, ids, articles, loading } = props
 
 	const didMount = React.useRef(false)
 	const [page, setPage] = React.useState(1)
@@ -40,6 +41,12 @@ const NewsPage: React.SFC<Props> = (props): JSX.Element => {
 		getNews({ page: Number(page) })
 	}, [page])
 
+	React.useEffect(() => {
+		return () => {
+			clearNews()
+		}
+	}, [])
+
 	const loadMore = async (
 		startIndex: number,
 		stopIndex: number
@@ -49,18 +56,26 @@ const NewsPage: React.SFC<Props> = (props): JSX.Element => {
 
 	return (
 		<NewsContainer>
-			<NewsList
-				articles={articles}
-				loadMore={loadMore}
-				loading={loading}
-				ids={ids}
-				hasNextPage={hasNextPage}
-			/>
+			{!didMount ? (
+				<div>Loading...</div>
+			) : (
+				<NewsList
+					articles={articles}
+					loadMore={loadMore}
+					loading={loading}
+					ids={ids}
+					hasNextPage={hasNextPage}
+				/>
+			)}
 		</NewsContainer>
 	)
 }
 
 export default connect(
 	(store: RootState) => store.news,
-	dispatch => bindActionCreators({ getNews: newsActions.getNews }, dispatch)
+	dispatch =>
+		bindActionCreators(
+			{ getNews: newsActions.getNews, clearNews: newsActions.clearNews },
+			dispatch
+		)
 )(NewsPage)

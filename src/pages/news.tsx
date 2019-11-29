@@ -5,16 +5,8 @@ import { RootState } from '../store/reducers'
 import { bindActionCreators } from 'redux'
 import * as newsActions from '../store/actions/news/news'
 import { NewsState } from '../store/types/news'
-import { NewsCard } from '../components/news/NewsCard'
 import styled from 'styled-components'
-import {
-	AutoSizer,
-	List,
-	InfiniteLoader,
-	Index,
-	IndexRange,
-} from 'react-virtualized'
-import 'react-virtualized/styles.css'
+import { NewsList } from '../components/news/NewsList'
 
 const NewsContainer = styled.div`
 	width: 100%;
@@ -33,90 +25,37 @@ type DispatchProps = {
 type Props = RouteComponentProps & StateProps & DispatchProps
 
 const NewsPage: React.SFC<Props> = (props): JSX.Element => {
-	const { getNews, total, ids, articles } = props
+	const { getNews, total, ids, articles, loading } = props
 
+	const didMount = React.useRef(false)
 	const [page, setPage] = React.useState(1)
+	const [hasNextPage, setHasNextPage] = React.useState(true)
 
 	React.useEffect(() => {
+		if (didMount.current) {
+			setHasNextPage(ids.length < total)
+		} else {
+			didMount.current = true
+		}
 		getNews({ page: Number(page) })
 	}, [page])
 
-	const loadMoreHandler = async (params: IndexRange): Promise<void> => {
+	const loadMore = async (
+		startIndex: number,
+		stopIndex: number
+	): Promise<void> => {
 		setPage(page + 1)
-	}
-
-	const rowCount = ids.length < total ? ids.length + 1 : ids.length
-
-	const isRowLoaded = ({ index }: Index): boolean =>
-		!(ids.length < total) || index < ids.length
-
-	const rowRenderer = ({
-		index,
-		style,
-		key,
-	}: {
-		index: number
-		style: object
-		key: string
-	}) => {
-		if (!isRowLoaded({ index })) {
-			return (
-				<div
-					style={{
-						...style,
-						left: '50%',
-						transform: 'translateX(-50%)',
-						width: '100px',
-						height: '400px',
-						display: 'flex',
-						justifyContent: 'center',
-						alignItems: 'center',
-					}}
-					key={key}
-				>
-					Loading...
-				</div>
-			)
-		}
-
-		const id = ids[index]
-		const article = articles[id]
-
-		return (
-			<NewsCard
-				article={article}
-				key={key}
-				style={{ ...style, left: '50%', transform: 'translateX(-50%)' }}
-			/>
-		)
 	}
 
 	return (
 		<NewsContainer>
-			<AutoSizer style={{ width: '100%', height: '100%' }}>
-				{({ height, width }) => (
-					<InfiniteLoader
-						isRowLoaded={isRowLoaded}
-						loadMoreRows={loadMoreHandler}
-						rowCount={5000}
-						threshold={4}
-					>
-						{({ onRowsRendered, registerChild }) => (
-							<List
-								{...ids}
-								overscanRowCount={7}
-								onRowsRendered={onRowsRendered}
-								ref={registerChild}
-								height={height}
-								width={width}
-								rowCount={rowCount}
-								rowHeight={400}
-								rowRenderer={rowRenderer}
-							></List>
-						)}
-					</InfiniteLoader>
-				)}
-			</AutoSizer>
+			<NewsList
+				articles={articles}
+				loadMore={loadMore}
+				loading={loading}
+				ids={ids}
+				hasNextPage={hasNextPage}
+			/>
 		</NewsContainer>
 	)
 }

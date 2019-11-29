@@ -45,7 +45,7 @@ export type NewsResponse = Promise<{
 export const getNews = async (
 	params: NewsParams = { page: 1 }
 ): NewsResponse => {
-	const url = `${API_URL}?country=ru&apiKey=${API_KEY}&page=${params.page}&pageSize=3`
+	const url = `${API_URL}?country=ru&apiKey=${API_KEY}&page=${params.page}&pageSize=7`
 	const result = await fetch(url)
 	if (!result.ok) {
 		const { error } = await result.json()

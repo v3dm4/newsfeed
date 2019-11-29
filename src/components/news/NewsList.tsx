@@ -53,7 +53,11 @@ export const NewsList: React.FC<NewsListProps> = ({
 			<NewsCard
 				article={article}
 				key={id}
-				style={{ ...style, left: '50%', transform: 'translateX(-50%)' }}
+				style={{
+					...style,
+					left: '50%',
+					transform: 'translateX(-50%)',
+				}}
 			/>
 		)
 	}
@@ -70,6 +74,7 @@ export const NewsList: React.FC<NewsListProps> = ({
 				>
 					{({ onItemsRendered, ref }) => (
 						<List
+							style={{ overflowX: 'hidden' }}
 							itemSize={400}
 							height={height}
 							width={width}

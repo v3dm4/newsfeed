@@ -5,7 +5,7 @@ const StyledImg = styled.img`
 	width: 100%;
 	height: 100%;
 	object-fit: contain;
-	background-color: #fff;
+	background-color: ${props => props.theme.bgLight};
 `
 
 export const Img: React.FC<ImgHTMLAttributes<HTMLImageElement>> = (

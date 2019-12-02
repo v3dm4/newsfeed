@@ -6,21 +6,41 @@ export const StyledHeader = styled.h2`
 	font-weight: 500;
 	font-size: 22px;
 	margin: 10px 0;
+	overflow: hidden;
+	position: relative;
+
+	:after {
+		content: '';
+		text-align: right;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		width: 20%;
+		height: 1.2em;
+		background: ${props =>
+			`linear-gradient(
+			to right,
+			${props.theme.bgLight}00,
+			${props.theme.bgLight} 50%
+		)`};
+	}
 `
 
-const truncateText = (element: HTMLElement): void => {
-	const wordArray = element.innerHTML.split('')
-	while (element.scrollHeight > element.offsetHeight) {
-		wordArray.pop()
-		element.innerHTML = wordArray.join(' ') + '...'
-	}
-}
-
 interface HeaderProps {
-	truncate?: boolean
+	height: number | string
 }
 
 export const Header: React.FC<HTMLAttributes<HTMLHeadingElement> &
 	HeaderProps> = (props): JSX.Element => {
-	return <StyledHeader style={props.style}>{props.children}</StyledHeader>
+	const height =
+		typeof props.height === 'number' ? `${props.height}px` : props.height
+	return (
+		<StyledHeader style={{ ...props.style, height }}>
+			{props.children}
+		</StyledHeader>
+	)
+}
+
+Header.defaultProps = {
+	height: '1.2em',
 }

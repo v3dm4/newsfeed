@@ -4,6 +4,7 @@ import AutoSizer from 'react-virtualized-auto-sizer'
 import InfiniteLoader from 'react-window-infinite-loader'
 import { NewsElement } from '../../store/types/news'
 import { NewsCard } from './NewsCard'
+import { ThemeContext } from 'styled-components'
 
 interface NewsListProps {
 	articles: { [key: string]: NewsElement }
@@ -20,6 +21,8 @@ export const NewsList: React.FC<NewsListProps> = ({
 	loading,
 	loadMore,
 }): JSX.Element => {
+	const theme = React.useContext(ThemeContext)
+
 	const itemCount = hasNextPage ? ids.length + 1 : ids.length
 
 	const loadMoreItems = loading ? () => {} : loadMore
@@ -63,7 +66,9 @@ export const NewsList: React.FC<NewsListProps> = ({
 	}
 
 	return (
-		<AutoSizer style={{ width: '100%', height: '100%' }}>
+		<AutoSizer
+			style={{ width: '100%', height: '100%', backgroundColor: theme.bg }}
+		>
 			{({ height, width }) => (
 				<InfiniteLoader
 					isItemLoaded={isItemLoaded}

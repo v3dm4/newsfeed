@@ -9,7 +9,7 @@ const BottomNav = styled(props => <Nav {...props} />)`
 
 const IconLink = styled(Link)`
 	font-size: 15px;
-	font-weight: 300px;
+	font-weight: 300;
 	text-decoration: none;
 	color: rgba(0, 0, 0, 0.54);
 	cursor: pointer;

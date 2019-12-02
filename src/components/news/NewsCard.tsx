@@ -9,7 +9,12 @@ const CardContainer = styled.div`
 	max-width: 760px;
 	height: 400px;
 	overflow: hidden;
-	background-color: #8080801a;
+	background-color: ${props => props.theme.bg};
+	border-radius: 15px;
+	box-shadow: ${props =>
+		props.theme.name !== 'light'
+			? `-20px 0 20px -20px ${props.theme.bsColor}, 20px 0 20px -20px ${props.theme.bsColor}`
+			: `-20px 0 20px -20px ${props.theme.bsColor}, 20px 0 20px -20px ${props.theme.bsColor}`};
 `
 const Wrapper = styled.div`
 	width: 100%;
@@ -17,7 +22,7 @@ const Wrapper = styled.div`
 	margin: 3px 0;
 	box-sizing: border-box;
 	padding: 10px 20px;
-	background-color: #fff;
+	background-color: ${props => props.theme.bgLight};
 	overflow: hidden;
 `
 

@@ -7,6 +7,7 @@ import { AppContext } from '../../../App'
 export const Nav = styled.nav`
 	position: fixed;
 	left: 0;
+	right: 0;
 	height: 50px;
 	display: flex;
 	justify-content: center;
@@ -14,6 +15,7 @@ export const Nav = styled.nav`
 	width: 100%;
 	background-color: ${props => props.theme.nav};
 	box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.05);
+	z-index: 100;
 `
 export const NavHOC: React.FC = (): JSX.Element => {
 	const { size } = React.useContext(AppContext)

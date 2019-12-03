@@ -4,7 +4,6 @@ import styled, { ThemeContext } from 'styled-components'
 import { Link } from '@reach/router'
 import { Switch } from '../../ui/Switch/Switch'
 import { AppContext } from '../../../App'
-import { FaBeer } from 'react-icons/fa'
 
 const TopNav = styled(props => <Nav {...props} />)`
 	top: 0;

@@ -2,8 +2,9 @@ import React from 'react'
 import { Nav } from './NavBar'
 import styled, { ThemeContext } from 'styled-components'
 import { Link } from '@reach/router'
-import { Switch } from '../../ui/Switch'
+import { Switch } from '../../ui/Switch/Switch'
 import { AppContext } from '../../../App'
+import { FaBeer } from 'react-icons/fa'
 
 const TopNav = styled(props => <Nav {...props} />)`
 	top: 0;
@@ -34,7 +35,10 @@ export const TopNavBar: React.FC = (): JSX.Element => {
 			<TextLink to='/news'>Новости</TextLink>
 			<TextLink to='/login'>Логин</TextLink>
 			<TextLink to='/profile'>Профиль</TextLink>
-			<Switch value={name === 'light'} onChange={changeTheme} />
+			<Switch value={name === 'light'} onChange={changeTheme}>
+				<Switch.On>🌙</Switch.On>
+				<Switch.Off>☀️</Switch.Off>
+			</Switch>
 		</TopNav>
 	)
 }

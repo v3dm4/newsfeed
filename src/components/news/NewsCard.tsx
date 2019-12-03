@@ -14,7 +14,7 @@ const CardContainer = styled.div`
 	box-shadow: ${props =>
 		props.theme.name !== 'light'
 			? `-20px 0 20px -20px ${props.theme.bsColor}, 20px 0 20px -20px ${props.theme.bsColor}`
-			: `-20px 0 20px -20px ${props.theme.bsColor}, 20px 0 20px -20px ${props.theme.bsColor}`};
+			: ``};
 `
 const Wrapper = styled.div`
 	width: 100%;

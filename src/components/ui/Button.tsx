@@ -13,7 +13,7 @@ export const Button = styled.button`
 	color: ${props => props.theme.bgLight};
 	border-radius: 6px;
 	outline: none;
-	transition: box-shadow 120ms ease, opacity 150ms ease;
+	transition: all 120ms ease, opacity 150ms ease;
 	cursor: pointer;
 
 	:focus {

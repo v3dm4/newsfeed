@@ -9,6 +9,7 @@ export const lightTheme: DefaultTheme = {
 	navTextHover: '#000',
 	navText: '#00000095',
 	bsColor: '#00000029',
+	accent: '#7cb1ff',
 }
 
 export const darkTheme = {
@@ -20,4 +21,5 @@ export const darkTheme = {
 	navTextHover: '#fff',
 	text: '#fff',
 	bsColor: '#00000029',
+	accent: '#7cb1ff',
 }

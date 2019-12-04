@@ -20,7 +20,7 @@ const TextLink = styled(Link)`
 	transition: color 200ms ease;
 
 	:hover {
-		color: ${props => props.theme.navTextHover};
+		color: ${props => props.theme.accent};
 	}
 `
 

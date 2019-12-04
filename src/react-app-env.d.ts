@@ -12,5 +12,6 @@ declare module 'styled-components' {
 		bg: string
 		bgLight: string
 		nav: string
+		accent: string
 	}
 }

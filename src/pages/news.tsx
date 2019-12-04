@@ -2,19 +2,10 @@ import * as React from 'react'
 import { RouteComponentProps } from '@reach/router'
 import { connect } from 'react-redux'
 import { RootState } from '../store/reducers'
-import { bindActionCreators } from 'redux'
 import * as newsActions from '../store/actions/news/news'
 import { NewsState } from '../store/types/news'
-import styled from 'styled-components'
 import { NewsList } from '../components/news/NewsList'
-
-const NewsContainer = styled.div`
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: calc(100vh - 50px);
-`
+import { PageContainer } from '../components/ui/PageContainer'
 
 type StateProps = NewsState
 
@@ -55,7 +46,7 @@ const NewsPage: React.SFC<Props> = (props): JSX.Element => {
 	}
 
 	return (
-		<NewsContainer>
+		<PageContainer>
 			{!didMount ? (
 				<div>Loading...</div>
 			) : (
@@ -67,15 +58,11 @@ const NewsPage: React.SFC<Props> = (props): JSX.Element => {
 					hasNextPage={hasNextPage}
 				/>
 			)}
-		</NewsContainer>
+		</PageContainer>
 	)
 }
 
-export default connect(
-	(store: RootState) => store.news,
-	dispatch =>
-		bindActionCreators(
-			{ getNews: newsActions.getNews, clearNews: newsActions.clearNews },
-			dispatch
-		)
-)(NewsPage)
+export default connect((store: RootState) => store.news, {
+	getNews: newsActions.getNews,
+	clearNews: newsActions.clearNews,
+})(NewsPage)

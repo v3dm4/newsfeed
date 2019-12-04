@@ -7,13 +7,14 @@ import { Button } from '../ui/Button'
 import { FormElement } from '../ui/Form/FormElement'
 import { Tabs } from '../ui/Tabs'
 import { availableTabs } from './const'
+import { connect } from 'react-redux'
 
 interface IFormValues {
 	email: string
 	password: string
 }
 
-export const LoginForm: React.FC = (): JSX.Element => {
+const LoginForm: React.FC = (): JSX.Element => {
 	const [activeTab, setActiveTab] = React.useState('signIn')
 	const initialValues: IFormValues = {
 		email: '',
@@ -62,3 +63,5 @@ export const LoginForm: React.FC = (): JSX.Element => {
 		</Form>
 	)
 }
+
+export default connect(null, {})(LoginForm)

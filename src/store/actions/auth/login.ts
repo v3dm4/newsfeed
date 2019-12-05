@@ -1,5 +1,6 @@
 import * as types from './authActionTypes'
 import { LoginParams } from '../../../api'
+import { AuthState } from '../../types/auth'
 
 export const login = (payload: LoginParams) =>
 	<const>{
@@ -7,9 +8,10 @@ export const login = (payload: LoginParams) =>
 		payload,
 	}
 
-export const resolveLogin = () =>
+export const resolveLogin = (payload: Partial<AuthState>) =>
 	<const>{
 		type: types.AUTH_LOGIN_RESOLVE,
+		payload,
 	}
 
 export const rejectLogin = (payload: Error) =>

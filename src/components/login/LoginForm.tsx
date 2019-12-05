@@ -9,16 +9,28 @@ import { availableTabs } from './const'
 import { connect } from 'react-redux'
 import * as loginActions from '../../store/actions/auth/login'
 import { LoginParams } from '../../api'
+import { navigate } from '@reach/router'
+import { RootState } from '../../store/reducers'
+import { AuthState } from '../../store/types/auth'
 
 type DispatchProps = {
 	login: typeof loginActions.login
 }
 
-type Props = DispatchProps
+type StateProps = AuthState
+
+type Props = DispatchProps & StateProps
 
 const LoginForm: React.FC<Props> = (props): JSX.Element => {
-	const { login } = props
+	const { login, username } = props
 	const [activeTab, setActiveTab] = React.useState('signIn')
+
+	React.useEffect(() => {
+		if (username) {
+			navigate('/news')
+		}
+	}, [username])
+
 	const initialValues: LoginParams = {
 		username: '',
 		password: '',
@@ -26,8 +38,8 @@ const LoginForm: React.FC<Props> = (props): JSX.Element => {
 	return (
 		<Formik
 			initialValues={initialValues}
-			onSubmit={values => {
-				login(values)
+			onSubmit={async values => {
+				await login(values)
 			}}
 		>
 			<Form {...({} as any)}>
@@ -59,4 +71,6 @@ const LoginForm: React.FC<Props> = (props): JSX.Element => {
 	)
 }
 
-export default connect(null, { login: loginActions.login })(LoginForm)
+export default connect((store: RootState) => store.auth, {
+	login: loginActions.login,
+})(LoginForm)

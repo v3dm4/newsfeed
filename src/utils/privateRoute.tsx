@@ -1,17 +1,24 @@
 import React, { ComponentType } from 'react'
 import { RouteComponentProps, Redirect } from '@reach/router'
+import { connect } from 'react-redux'
+import { RootState } from '../store/reducers'
+import { AuthState } from '../store/types/auth'
 
 interface IPrivateRouteProps extends RouteComponentProps {
 	as: ComponentType
 }
 
-export const PrivateRoute: React.FC<IPrivateRouteProps> = (
-	props
-): JSX.Element => {
-	const { as: Component, ...rest } = props
-	return false ? (
+type StateProps = AuthState
+
+type Props = RouteComponentProps & StateProps & IPrivateRouteProps
+
+export const PrivateRoute: React.FC<Props> = (props): JSX.Element => {
+	const { as: Component, username, ...rest } = props
+	return username ? (
 		<Component {...rest} />
 	) : (
 		<Redirect from='' to='login' noThrow />
 	)
 }
+
+export default connect((store: RootState) => store.auth)(PrivateRoute)

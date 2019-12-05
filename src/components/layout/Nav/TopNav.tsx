@@ -33,7 +33,6 @@ export const TopNavBar: React.FC = (): JSX.Element => {
 			<TextLink to='/'>На главную</TextLink>
 			<TextLink to='/news'>Новости</TextLink>
 			<TextLink to='/login'>Логин</TextLink>
-			<TextLink to='/profile'>Профиль</TextLink>
 			<Switch value={name === 'light'} onChange={changeTheme}>
 				<Switch.On>🌙</Switch.On>
 				<Switch.Off>☀️</Switch.Off>

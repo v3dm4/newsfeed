@@ -10,7 +10,7 @@ import {
 	useWindowDimensions,
 	IWindowSize,
 } from './utils/hooks/useWindowDimensions'
-import { PrivateRoute } from './utils/privateRoute'
+import PrivateRoute from './utils/privateRoute'
 
 const MainPage = React.lazy(() => import('./pages/main'))
 const NewsPage = React.lazy(() => import('./pages/news'))

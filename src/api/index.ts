@@ -20,7 +20,7 @@ export const checkToken = (): Promise<LoginResponse> => {
 }
 
 export const login = async (params: LoginParams): Promise<LoginResponse> => {
-	await sleep(500)
+	await sleep(3000)
 	const { username, password } = params
 	if (username === 'admin@mail.ru' && password === '12345') {
 		return { username }

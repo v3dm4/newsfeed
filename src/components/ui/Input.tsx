@@ -30,6 +30,7 @@ const Input: React.FC<InputHTMLAttributes<HTMLInputElement> & IInputProps> = ({
 	label,
 	...props
 }): JSX.Element => {
+	// Formik doesn't know how to escape that any workaround
 	const [field, meta] = useField<any>(props)
 	return (
 		<FormElement>

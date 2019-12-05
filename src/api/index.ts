@@ -7,23 +7,22 @@ export interface LoginParams {
 	username: string
 	password: string
 }
-export type LoginResponse = Promise<{ username: string }>
+export type LoginResponse = { username: string }
 
-export const checkToken = (): LoginResponse => {
+export const checkToken = (): Promise<LoginResponse> => {
 	return new Promise((resolve, reject) => {
-		if (localStorage.getItem('token') === 'admin') {
-			resolve({ username: 'admin' })
+		if (localStorage.getItem('token') === 'admin@mail.ru') {
+			resolve({ username: 'admin@mail.ru' })
 		} else {
 			reject()
 		}
 	})
 }
 
-export const login = async (params: LoginParams): LoginResponse => {
+export const login = async (params: LoginParams): Promise<LoginResponse> => {
 	await sleep(500)
 	const { username, password } = params
-	if (username === 'admin' && password === '12345') {
-		localStorage.setItem('token', 'admin')
+	if (username === 'admin@mail.ru' && password === '12345') {
 		return { username }
 	}
 	throw new Error('Login or password is incorrent')
@@ -31,7 +30,7 @@ export const login = async (params: LoginParams): LoginResponse => {
 
 export type LogoutResponse = Promise<void>
 export const logout = async (): LogoutResponse => {
-	await localStorage.removeItem('token')
+	return new Promise(res => res())
 }
 
 export interface NewsParams {

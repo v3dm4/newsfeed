@@ -1,0 +1,6 @@
+export const AUTH_LOGIN_REQUEST = 'auth/login/request'
+export const AUTH_LOGIN_RESOLVE = 'auth/login/resolve'
+export const AUTH_LOGIN_REJECT = 'auth/login/reject'
+export const AUTH_LOGOUT_REQUEST = 'auth/logout/request'
+export const AUTH_LOGOUT_RESOLVE = 'auth/logout/resolve'
+export const AUTH_LOGOUT_REJECT = 'auth/logout/reject'

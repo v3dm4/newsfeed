@@ -1,67 +1,62 @@
 import React from 'react'
-import { Form } from '../ui/Form/Form'
-import { useFormik } from 'formik'
-import { FormLabel } from '../ui/Form/FormLabel'
-import { Input } from '../ui/Input'
+import { Panel } from '../ui/Panel/Panel'
+import { Formik, Form } from 'formik'
+import Input from '../ui/Input'
 import { Button } from '../ui/Button'
 import { FormElement } from '../ui/Form/FormElement'
 import { Tabs } from '../ui/Tabs'
 import { availableTabs } from './const'
 import { connect } from 'react-redux'
+import * as loginActions from '../../store/actions/auth/login'
+import { LoginParams } from '../../api'
 
-interface IFormValues {
-	email: string
-	password: string
+type DispatchProps = {
+	login: typeof loginActions.login
 }
 
-const LoginForm: React.FC = (): JSX.Element => {
+type Props = DispatchProps
+
+const LoginForm: React.FC<Props> = (props): JSX.Element => {
+	const { login } = props
 	const [activeTab, setActiveTab] = React.useState('signIn')
-	const initialValues: IFormValues = {
-		email: '',
+	const initialValues: LoginParams = {
+		username: '',
 		password: '',
 	}
-	const formik = useFormik({
-		initialValues,
-		onSubmit: values => {},
-	})
 	return (
-		<Form minWidth={360}>
-			<Form.Header>
-				<Tabs
-					tabs={availableTabs}
-					activeTab={activeTab}
-					onChange={value => setActiveTab(value)}
-				/>
-			</Form.Header>
-			<Form.Content onSubmit={formik.handleSubmit}>
-				<FormElement>
-					<FormLabel htmlFor='email'>Email</FormLabel>
-				</FormElement>
-				<Input
-					id='email'
-					name='email'
-					type='email'
-					value={formik.values.email}
-					onChange={formik.handleChange}
-				/>
-				<FormElement>
-					<FormLabel htmlFor='password'>Пароль</FormLabel>
-				</FormElement>
-				<Input
-					id='password'
-					name='password'
-					type='password'
-					value={formik.values.password}
-					onChange={formik.handleChange}
-				/>
-				<FormElement margin='l'>
-					<Button type='submit'>
-						{activeTab === 'signIn' ? 'Войти' : 'Подтвердить'}
-					</Button>
-				</FormElement>
-			</Form.Content>
-		</Form>
+		<Formik
+			initialValues={initialValues}
+			onSubmit={values => {
+				login(values)
+			}}
+		>
+			<Form {...({} as any)}>
+				<Panel minWidth={360}>
+					<Panel.Header>
+						<Tabs
+							tabs={availableTabs}
+							activeTab={activeTab}
+							onChange={value => setActiveTab(value)}
+						/>
+					</Panel.Header>
+					<Panel.Content>
+						<Input id='username' name='username' type='email' label='Email' />
+						<Input
+							id='password'
+							name='password'
+							type='password'
+							label='Пароль'
+						/>
+						<FormElement margin='l'>
+							<Button type='submit'>
+								{activeTab === 'signIn' ? 'Войти' : 'Подтвердить'}
+							</Button>
+						</FormElement>
+					</Panel.Content>
+				</Panel>
+			</Form>
+		</Formik>
 	)
 }
 
-export default connect(null, {})(LoginForm)
+export default connect(null, { login: loginActions.login })(LoginForm)

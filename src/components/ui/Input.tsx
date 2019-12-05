@@ -1,6 +1,11 @@
+import React, { InputHTMLAttributes } from 'react'
 import styled from 'styled-components'
+import { FormLabel } from '../ui/Form/FormLabel'
+import { FormElement } from '../ui/Form/FormElement'
+import { useField } from 'formik'
+import { ErrorMessage } from './ErrorMessage'
 
-export const Input = styled.input`
+export const StyledInput = styled.input`
 	outline: none;
 	border: none;
 	border-radius: 6px;
@@ -17,3 +22,26 @@ export const Input = styled.input`
 		box-shadow: 0 0 4px ${props => props.theme.accent};
 	}
 `
+interface IInputProps {
+	label?: string
+}
+
+const Input: React.FC<InputHTMLAttributes<HTMLInputElement> & IInputProps> = ({
+	label,
+	...props
+}): JSX.Element => {
+	const [field, meta] = useField<any>(props)
+	return (
+		<FormElement>
+			{label && (
+				<FormElement margin='s'>
+					<FormLabel htmlFor={props.id || props.name}>{label}</FormLabel>
+				</FormElement>
+			)}
+			<StyledInput {...field} {...props} />
+			{meta.touched && meta.error && <ErrorMessage>{meta.error}</ErrorMessage>}
+		</FormElement>
+	)
+}
+
+export default React.memo(Input)

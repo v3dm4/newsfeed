@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 
-export interface IFormProps {
+export interface IPanelProps {
 	minWidth?: number
 }
 
-export const FormContainer = styled.div<IFormProps>`
+export const PanelContainer = styled.div<IPanelProps>`
 	min-width: ${props => props.minWidth}px;
 	width: auto;
 	background-color: ${props => props.theme.bgLight};
@@ -15,12 +15,12 @@ export const FormContainer = styled.div<IFormProps>`
 	box-shadow: 0 0 30px ${props => props.theme.bsColor};
 `
 
-export const FormHeader = styled.div`
+export const PanelHeader = styled.div`
 	width: 100%;
 	height: auto;
 `
 
-export const FormContent = styled.form`
+export const PanelContent = styled.div`
 	width: 100%;
 	height: auto;
 	display: flex;

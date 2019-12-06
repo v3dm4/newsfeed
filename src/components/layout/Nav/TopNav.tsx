@@ -1,9 +1,8 @@
 import React from 'react'
 import { Nav } from './NavBar'
-import styled, { ThemeContext } from 'styled-components'
+import styled from 'styled-components'
 import { Link } from '@reach/router'
-import { Switch } from '../../ui/Switch/Switch'
-import { AppContext } from '../../../App'
+import { ThemeSwitcher } from '../../ui/ThemeSwitcher'
 
 const TopNav = styled(props => <Nav {...props} />)`
 	top: 0;
@@ -25,18 +24,12 @@ const TextLink = styled(Link)`
 `
 
 export const TopNavBar: React.FC = (): JSX.Element => {
-	const { changeTheme } = React.useContext(AppContext)
-	const { name } = React.useContext(ThemeContext)
-
 	return (
 		<TopNav>
 			<TextLink to='/'>На главную</TextLink>
 			<TextLink to='/news'>Новости</TextLink>
 			<TextLink to='/login'>Логин</TextLink>
-			<Switch value={name === 'light'} onChange={changeTheme}>
-				<Switch.On>🌙</Switch.On>
-				<Switch.Off>☀️</Switch.Off>
-			</Switch>
+			<ThemeSwitcher />
 		</TopNav>
 	)
 }

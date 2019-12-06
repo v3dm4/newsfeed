@@ -9,7 +9,7 @@ import { availableTabs } from './const'
 import { connect } from 'react-redux'
 import * as loginActions from '../../store/actions/auth/login'
 import { LoginParams } from '../../api'
-import { navigate } from '@reach/router'
+import { Redirect } from '@reach/router'
 import { RootState } from '../../store/reducers'
 import { AuthState } from '../../store/types/auth'
 
@@ -25,17 +25,13 @@ const LoginForm: React.FC<Props> = (props): JSX.Element => {
 	const { login, username } = props
 	const [activeTab, setActiveTab] = React.useState('signIn')
 
-	React.useEffect(() => {
-		if (username) {
-			navigate('/news')
-		}
-	}, [username])
-
 	const initialValues: LoginParams = {
 		username: '',
 		password: '',
 	}
-	return (
+	return username ? (
+		<Redirect to='/news' />
+	) : (
 		<Formik
 			initialValues={initialValues}
 			onSubmit={async values => {

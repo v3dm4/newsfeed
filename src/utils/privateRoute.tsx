@@ -1,8 +1,8 @@
 import React, { ComponentType } from 'react'
 import { RouteComponentProps, Redirect } from '@reach/router'
 import { connect } from 'react-redux'
-import { RootState } from '../store/reducers'
-import { AuthState } from '../store/types/auth'
+import { RootState } from '../services/reducers'
+import { AuthState } from '../services/types/auth'
 
 interface IPrivateRouteProps extends RouteComponentProps {
 	as: ComponentType

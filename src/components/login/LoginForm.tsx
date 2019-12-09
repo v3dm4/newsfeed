@@ -7,11 +7,11 @@ import { FormElement } from '../ui/Form/FormElement'
 import { Tabs } from '../ui/Tabs'
 import { availableTabs } from './const'
 import { connect } from 'react-redux'
-import * as loginActions from '../../store/actions/auth/login'
+import * as loginActions from '../../services/actions/auth/login'
 import { LoginParams } from '../../api'
 import { Redirect } from '@reach/router'
-import { RootState } from '../../store/reducers'
-import { AuthState } from '../../store/types/auth'
+import { RootState } from '../../services/reducers'
+import { AuthState } from '../../services/types/auth'
 
 type DispatchProps = {
 	login: typeof loginActions.login

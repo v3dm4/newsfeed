@@ -3,7 +3,7 @@ import './App.css'
 import { Router } from '@reach/router'
 import { NavHOC as NavBar } from './components/layout/Nav/NavBar'
 import { Content } from './components/layout/Content'
-import ErrorBoundary from './components/ErrorBoundary'
+import ErrorBoundary from './utils/ErrorBoundary'
 import { ThemeProvider, createGlobalStyle } from 'styled-components'
 import * as availableThemes from './theme'
 import {
@@ -15,7 +15,7 @@ import PrivateRoute from './utils/privateRoute'
 const MainPage = React.lazy(() => import('./pages/main'))
 const NewsPage = React.lazy(() => import('./pages/news'))
 const ProfilePage = React.lazy(() => import('./pages/profile'))
-const LoginPage = React.lazy(() => import('./pages/login'))
+const LoginPage = React.lazy(() => import('./pages/auth'))
 
 const GlobalStyle = createGlobalStyle`
 	body {

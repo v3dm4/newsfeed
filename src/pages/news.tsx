@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { RouteComponentProps } from '@reach/router'
 import { connect } from 'react-redux'
-import { RootState } from '../store/reducers'
-import * as newsActions from '../store/actions/news/news'
-import { NewsState } from '../store/types/news'
+import { RootState } from '../services/reducers'
+import * as newsActions from '../services/actions/news/news'
+import { NewsState } from '../services/types/news'
 import { NewsList } from '../components/news/NewsList'
 import { PageContainer } from '../components/ui/PageContainer'
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Switch } from './Switch/Switch'
+import { Switch } from '../ui/Switch/Switch'
 import { useTheme } from '../../utils/hooks/useTheme'
 
 export const ThemeSwitcher = () => {

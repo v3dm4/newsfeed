@@ -1,5 +1,5 @@
 import React, { HTMLAttributes } from 'react'
-import { NewsElement } from '../../store/types/news'
+import { NewsElement } from '../../services/types/news'
 import styled from 'styled-components'
 import { Img } from '../ui/Img'
 import { NewsCardHeader } from './NewsCardHeader'

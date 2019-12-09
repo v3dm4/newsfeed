@@ -2,7 +2,7 @@ import React from 'react'
 import { Nav } from './NavBar'
 import styled from 'styled-components'
 import { Link } from '@reach/router'
-import { ThemeSwitcher } from '../../ui/ThemeSwitcher'
+import { ThemeSwitcher } from '../../common/ThemeSwitcher'
 
 const TopNav = styled(props => <Nav {...props} />)`
 	top: 0;

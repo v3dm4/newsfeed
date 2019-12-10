@@ -1,6 +1,6 @@
 import React from 'react'
 import { Nav } from './NavBar'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { ThemeSwitcher } from '../../common/ThemeSwitcher'
 import { useAuth } from '../../../utils/hooks/useAuth'
 import { Link } from '../../ui/Link'
@@ -22,12 +22,6 @@ const TextLink = styled(Link)`
 	:hover {
 		color: ${props => props.theme.accent};
 	}
-
-	${props =>
-		props.active &&
-		css`
-			color: ${props.theme.accent};
-		`}
 `
 
 export const TopNavBar: React.FC = (): JSX.Element => {

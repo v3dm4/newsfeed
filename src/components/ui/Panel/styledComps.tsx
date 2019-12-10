@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 
 export interface IPanelProps {
-	minWidth?: number
+	minWidth?: number | string
 }
 
 export const PanelContainer = styled.div<IPanelProps>`
-	min-width: ${props => props.minWidth}px;
+	min-width: ${props => typeof props.minWidth === 'string' ? props.minWidth : props.minWidth + 'px'};
 	width: auto;
 	background-color: ${props => props.theme.bgLight};
 	display: flex;

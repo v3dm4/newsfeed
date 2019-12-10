@@ -1,8 +1,8 @@
 import React from 'react'
 import { Nav } from './NavBar'
 import styled from 'styled-components'
-import { Link } from '@reach/router'
-import { IoMdHome, IoMdContact, IoMdBook } from 'react-icons/io'
+import { Link } from '../../ui/Link'
+import { IoMdContact, IoMdBook } from 'react-icons/io'
 import { useAuth } from '../../../utils/hooks/useAuth'
 
 const BottomNav = styled(props => <Nav {...props} />)`

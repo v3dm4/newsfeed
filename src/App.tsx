@@ -28,7 +28,15 @@ const GlobalStyle = createGlobalStyle`
 		text-decoration: none;
 	}
 	.active {
-		color: ${props => props.theme.accent}
+		color: ${props => props.theme.accent};
+    text-transform: uppercase;
+	  font-weight: 500;
+    padding: 15px;
+    font-size: 15px;
+
+    @media (max-width: 768px) {
+      font-size: 25px;
+    }
 	}
 `
 
@@ -61,23 +69,21 @@ const App: React.FC<DispatchProps> = ({ checkAuthToken }): JSX.Element => {
 
 	return (
 		<ErrorBoundary>
-			<div className='container'>
-				<AppContext.Provider value={{ size, changeTheme }}>
-					<ThemeProvider theme={theme}>
-						<NavBar />
-						<GlobalStyle />
-						<React.Suspense fallback={<div>...Loading</div>}>
-							<Content>
-								<Router>
-									<NewsPage path='/news' />
-									<PrivateRoute as={ProfilePage} path='/profile' />
-									<LoginPage path='/login' />
-								</Router>
-							</Content>
-						</React.Suspense>
-					</ThemeProvider>
-				</AppContext.Provider>
-			</div>
+      <AppContext.Provider value={{ size, changeTheme }}>
+        <ThemeProvider theme={theme}>
+          <NavBar />
+          <GlobalStyle />
+          <React.Suspense fallback={<div>...Loading</div>}>
+            <Content>
+              <Router>
+                <NewsPage path='/news' />
+                <PrivateRoute as={ProfilePage} path='/profile' />
+                <LoginPage path='/login' />
+              </Router>
+            </Content>
+          </React.Suspense>
+        </ThemeProvider>
+      </AppContext.Provider>
 		</ErrorBoundary>
 	)
 }

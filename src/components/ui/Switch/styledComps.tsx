@@ -33,18 +33,18 @@ interface ISwitchIconProps {
 export const SwitchIcon = styled.div<ISwitchIconProps>`
 	position: absolute;
 	top: 50%;
-	width: 10px;
-	height: 10px;
+	width: 14px;
+	height: 14px;
 	user-select: none;
 	font-size: 10px;
 	line-height: normal;
-	transform: translateY(-54%);
+	transform: translateY(-50%);
 	${props =>
 		props.side === 'left'
 			? css`
 					left: 3px;
 			  `
 			: css`
-					right: 6px;
+					right: 3px;
 			  `}
 `

@@ -6,24 +6,13 @@ import { Button } from '../ui/Button'
 import { FormElement } from '../ui/Form/FormElement'
 import { Tabs } from '../ui/Tabs'
 import { availableTabs } from './const'
-import { connect } from 'react-redux'
-import * as loginActions from '../../services/actions/auth/login'
 import { LoginParams } from '../../api'
 import { Redirect } from '@reach/router'
-import { RootState } from '../../services/reducers'
-import { AuthState } from '../../services/types/auth'
+import { useAuthProvider } from '../../utils/hooks/useAuth'
 
-type DispatchProps = {
-	login: typeof loginActions.login
-}
-
-type StateProps = AuthState
-
-type Props = DispatchProps & StateProps
-
-const LoginForm: React.FC<Props> = (props): JSX.Element => {
-	const { login, username } = props
+export const LoginForm: React.FC = (props): JSX.Element => {
 	const [activeTab, setActiveTab] = React.useState('signIn')
+	const { username, login } = useAuthProvider()
 
 	const initialValues: LoginParams = {
 		username: '',
@@ -66,7 +55,3 @@ const LoginForm: React.FC<Props> = (props): JSX.Element => {
 		</Formik>
 	)
 }
-
-export default connect((store: RootState) => store.auth, {
-	login: loginActions.login,
-})(LoginForm)

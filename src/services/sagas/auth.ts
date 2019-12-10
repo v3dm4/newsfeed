@@ -1,6 +1,7 @@
 import { call as typedCall } from 'typed-redux-saga'
 import * as api from '../../api/index'
 import * as loginActions from '../actions/auth/login'
+import * as checkTokenActions from '../actions/auth/checkToken'
 import { SagaIterator } from 'redux-saga'
 import * as types from '../actions/auth/authActionTypes'
 import { put, fork, take, cancel, cancelled } from 'redux-saga/effects'
@@ -10,7 +11,7 @@ import { put, fork, take, cancel, cancelled } from 'redux-saga/effects'
 function* authorize(payload: api.LoginParams): SagaIterator {
 	try {
 		const token = yield* typedCall(api.login, payload)
-		localStorage.setItem('token', 'admin')
+		localStorage.setItem('token', 'admin@mail.ru')
 		yield put(loginActions.resolveLogin(token))
 	} catch (err) {
 		yield put(loginActions.rejectLogin(err))
@@ -24,18 +25,16 @@ function* authorize(payload: api.LoginParams): SagaIterator {
 }
 
 function* checkToken(): SagaIterator {
-	try {
-		const token = localStorage.getItem('token')
-		if (token === 'admin@mail.ru') {
-			yield put(loginActions.resolveLogin({ username: token }))
-		}
-	} catch (err) {}
+	const token = localStorage.getItem('token')
+	if (token === 'admin@mail.ru') {
+		yield put(loginActions.resolveLogin({ username: token }))
+	} else {
+		yield put(checkTokenActions.checkTokenReject())
+	}
 }
 
 export function* authFlow(): SagaIterator {
 	while (true) {
-		yield take(types.AUTH_CHECK_TOKEN)
-		yield fork(checkToken)
 		// TODO: figure out why i cannot pass action creator to take() and make it work the right way
 		const { payload }: { payload: api.LoginParams } = yield take(
 			types.AUTH_LOGIN_REQUEST

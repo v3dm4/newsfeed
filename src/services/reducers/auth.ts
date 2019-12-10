@@ -40,6 +40,16 @@ const auth = (state = initialState, action: AuthActions): AuthState => {
 				...state,
 				loading: false,
 			}
+		case types.AUTH_CHECK_TOKEN:
+			return {
+				...state,
+				loading: true,
+			}
+		case types.AUTH_CHECK_TOKEN_REJECT:
+			return {
+				...state,
+				loading: false,
+			}
 		default:
 			return state
 	}

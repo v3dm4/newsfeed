@@ -1,8 +1,7 @@
 const API_KEY = 'd9fd6f329ecb4013bfc11429ecc2f1c9'
 const API_URL = 'https://newsapi.org/v2/top-headlines'
+import { delay } from '../utils/helpers'
 
-const sleep = (delay: number): Promise<void> =>
-	new Promise(resolve => setTimeout(resolve, delay))
 export interface LoginParams {
 	username: string
 	password: string
@@ -20,7 +19,7 @@ export const checkToken = (): Promise<LoginResponse> => {
 }
 
 export const login = async (params: LoginParams): Promise<LoginResponse> => {
-	await sleep(3000)
+	await delay(3000)
 	const { username, password } = params
 	if (username === 'admin@mail.ru' && password === '12345') {
 		return { username }

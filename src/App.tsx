@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import './App.css'
 import { Router } from '@reach/router'
 import { NavHOC as NavBar } from './components/layout/Nav/NavBar'
@@ -10,7 +11,8 @@ import {
 	useWindowDimensions,
 	IWindowSize,
 } from './utils/hooks/useWindowDimensions'
-import PrivateRoute from './utils/privateRoute'
+import { PrivateRoute } from './utils/privateRoute'
+import { checkToken } from './services/actions/auth/checkToken'
 
 const MainPage = React.lazy(() => import('./pages/main'))
 const NewsPage = React.lazy(() => import('./pages/news'))
@@ -35,7 +37,11 @@ export const AppContext = React.createContext<AppContext>({
 	changeTheme: () => {},
 })
 
-const App = () => {
+type DispatchProps = {
+	checkAuthToken: typeof checkToken
+}
+
+const App: React.FC<DispatchProps> = ({ checkAuthToken }): JSX.Element => {
 	const { size } = useWindowDimensions()
 	const [theme, setTheme] = React.useState(availableThemes.lightTheme)
 
@@ -43,6 +49,10 @@ const App = () => {
 		const theme = value ? availableThemes.lightTheme : availableThemes.darkTheme
 		setTheme(theme)
 	}
+
+	React.useEffect(() => {
+		checkAuthToken()
+	}, [])
 
 	return (
 		<ErrorBoundary>
@@ -68,4 +78,4 @@ const App = () => {
 	)
 }
 
-export default App
+export default connect(null, { checkAuthToken: checkToken })(App)

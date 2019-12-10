@@ -4,7 +4,14 @@ import * as loginActions from '../actions/auth/login'
 import * as checkTokenActions from '../actions/auth/checkToken'
 import { SagaIterator } from 'redux-saga'
 import * as types from '../actions/auth/authActionTypes'
-import { put, fork, take, cancel, cancelled } from 'redux-saga/effects'
+import {
+	put,
+	fork,
+	take,
+	cancel,
+	cancelled,
+	takeEvery,
+} from 'redux-saga/effects'
 
 // TODO: need a little bit of refactoring
 
@@ -31,6 +38,10 @@ function* checkToken(): SagaIterator {
 	} else {
 		yield put(checkTokenActions.checkTokenReject())
 	}
+}
+
+export function* watchCheckToken() {
+	yield takeEvery(types.AUTH_CHECK_TOKEN, checkToken)
 }
 
 export function* authFlow(): SagaIterator {

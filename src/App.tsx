@@ -14,7 +14,6 @@ import {
 import { PrivateRoute } from './utils/privateRoute'
 import { checkToken } from './services/actions/auth/checkToken'
 
-const MainPage = React.lazy(() => import('./pages/main'))
 const NewsPage = React.lazy(() => import('./pages/news'))
 const ProfilePage = React.lazy(() => import('./pages/profile'))
 const LoginPage = React.lazy(() => import('./pages/auth'))
@@ -24,6 +23,12 @@ const GlobalStyle = createGlobalStyle`
 		color: ${props => props.theme.text};
 		background-color: ${props => props.theme.bg};
 		transition: all 200ms ease;
+	}
+	a {
+		text-decoration: none;
+	}
+	.active {
+		color: ${props => props.theme.accent}
 	}
 `
 
@@ -64,7 +69,6 @@ const App: React.FC<DispatchProps> = ({ checkAuthToken }): JSX.Element => {
 						<React.Suspense fallback={<div>...Loading</div>}>
 							<Content>
 								<Router>
-									<MainPage path='/' />
 									<NewsPage path='/news' />
 									<PrivateRoute as={ProfilePage} path='/profile' />
 									<LoginPage path='/login' />

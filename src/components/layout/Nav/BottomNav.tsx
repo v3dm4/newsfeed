@@ -3,6 +3,7 @@ import { Nav } from './NavBar'
 import styled from 'styled-components'
 import { Link } from '@reach/router'
 import { IoMdHome, IoMdContact, IoMdBook } from 'react-icons/io'
+import { useAuth } from '../../../utils/hooks/useAuth'
 
 const BottomNav = styled(props => <Nav {...props} />)`
 	&&& {
@@ -27,15 +28,13 @@ const IconLink = styled(Link)`
 `
 
 export const BottomNavBar: React.FC = (): JSX.Element => {
+	const username = useAuth()
 	return (
 		<BottomNav>
-			<IconLink to='/'>
-				<IoMdHome />
-			</IconLink>
 			<IconLink to='/news'>
 				<IoMdBook />
 			</IconLink>
-			<IconLink to='/profile'>
+			<IconLink to={username ? '/profile' : '/login'}>
 				<IoMdContact />
 			</IconLink>
 		</BottomNav>

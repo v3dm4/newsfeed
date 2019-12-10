@@ -19,7 +19,7 @@ export const LoginForm: React.FC = (props): JSX.Element => {
 		password: '',
 	}
 	return username ? (
-		<Redirect to='/news' />
+		<Redirect to='/news' noThrow />
 	) : (
 		<Formik
 			initialValues={initialValues}

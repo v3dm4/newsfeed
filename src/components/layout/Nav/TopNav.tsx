@@ -1,8 +1,9 @@
 import React from 'react'
 import { Nav } from './NavBar'
-import styled from 'styled-components'
-import { Link } from '@reach/router'
+import styled, { css } from 'styled-components'
 import { ThemeSwitcher } from '../../common/ThemeSwitcher'
+import { useAuth } from '../../../utils/hooks/useAuth'
+import { Link } from '../../ui/Link'
 
 const TopNav = styled(props => <Nav {...props} />)`
 	top: 0;
@@ -21,14 +22,24 @@ const TextLink = styled(Link)`
 	:hover {
 		color: ${props => props.theme.accent};
 	}
+
+	${props =>
+		props.active &&
+		css`
+			color: ${props.theme.accent};
+		`}
 `
 
 export const TopNavBar: React.FC = (): JSX.Element => {
+	const username = useAuth()
 	return (
 		<TopNav>
-			<TextLink to='/'>На главную</TextLink>
 			<TextLink to='/news'>Новости</TextLink>
-			<TextLink to='/login'>Логин</TextLink>
+			{username ? (
+				<TextLink to='/profile'>Профиль</TextLink>
+			) : (
+				<TextLink to='/login'>Логин</TextLink>
+			)}
 			<ThemeSwitcher />
 		</TopNav>
 	)

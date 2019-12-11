@@ -3,7 +3,11 @@ import { RootState } from '../../services/reducers'
 import { username } from '../../services/types/auth'
 import { login as loginAction } from '../../services/actions/auth/login'
 import { logout as logoutAction } from '../../services/actions/auth/logout'
-import { LoginParams } from '../../api'
+import {
+	signUp as signUpAction,
+	signUp,
+} from '../../services/actions/auth/signUp'
+import { LoginParams, SignUpParams } from '../../api/auth'
 
 const userSelector = (state: RootState) => state.auth
 
@@ -16,6 +20,7 @@ export interface IUseAuthReturnType {
 	username: username
 	login: (params: LoginParams) => ReturnType<typeof loginAction>
 	logout: () => ReturnType<typeof logoutAction>
+	signUp: (params: SignUpParams) => ReturnType<typeof signUpAction>
 }
 
 export const useAuthProvider = (): IUseAuthReturnType => {
@@ -26,5 +31,7 @@ export const useAuthProvider = (): IUseAuthReturnType => {
 
 	const logout = () => dispatch(logoutAction())
 
-	return { username, login, logout }
+	const signUp = (params: SignUpParams) => dispatch(signUpAction(params))
+
+	return { username, login, logout, signUp }
 }

@@ -1,18 +1,18 @@
 import React from 'react'
-import { Panel } from '../ui/Panel/Panel'
+import { Panel } from '../../ui/Panel/Panel'
 import { Formik, Form } from 'formik'
-import Input from '../ui/Input'
-import { Button } from '../ui/Button'
-import { FormElement } from '../ui/Form/FormElement'
-import { Tabs } from '../ui/Tabs'
+import Input from '../../ui/Input'
+import { Button } from '../../ui/Button'
+import { FormElement } from '../../ui/Form/FormElement'
+import { Tabs } from '../../ui/Tabs'
 import { availableTabs } from './const'
-import { LoginParams } from '../../api'
+import { LoginParams } from '../../../api/auth'
 import { Redirect } from '@reach/router'
-import { useAuthProvider } from '../../utils/hooks/useAuth'
+import { useAuthProvider } from '../../../utils/hooks/useAuth'
 
-export const LoginForm: React.FC = (props): JSX.Element => {
+export const LoginForm: React.FC = (): JSX.Element => {
 	const [activeTab, setActiveTab] = React.useState('signIn')
-	const { username, login } = useAuthProvider()
+	const { username, login, signUp } = useAuthProvider()
 
 	const initialValues: LoginParams = {
 		username: '',
@@ -24,7 +24,7 @@ export const LoginForm: React.FC = (props): JSX.Element => {
 		<Formik
 			initialValues={initialValues}
 			onSubmit={async values => {
-				await login(values)
+				activeTab === 'signIn' ? login(values) : signUp(values)
 			}}
 		>
 			<Form {...({} as any)}>

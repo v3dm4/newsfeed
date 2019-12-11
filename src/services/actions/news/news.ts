@@ -1,4 +1,4 @@
-import { NewsParams } from '../../../api'
+import { NewsParams } from '../../../api/news'
 import { NewsState } from '../../types/news'
 import * as types from './newsActionTypes'
 

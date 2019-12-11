@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import { RootState } from '../services/reducers'
 import * as newsActions from '../services/actions/news/news'
 import { NewsState } from '../services/types/news'
-import { NewsList } from '../components/news/NewsList'
-import { PageContainer } from '../components/ui/PageContainer'
+import { NewsList } from '../components/pages/news/NewsList'
+import { PageContainer } from '../components/layout/PageContainer'
 
 type StateProps = NewsState
 

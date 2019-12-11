@@ -1,5 +1,5 @@
 import * as types from './authActionTypes'
-import { LoginParams } from '../../../api'
+import { LoginParams } from '../../../api/auth'
 import { AuthState } from '../../types/auth'
 
 export const login = (payload: LoginParams) =>

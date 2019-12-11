@@ -1,4 +1,4 @@
-import { ITabsList } from '../ui/Tabs'
+import { ITabsList } from '../../ui/Tabs'
 
 export const availableTabs: ITabsList = [
 	{

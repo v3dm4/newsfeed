@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import newsReducer from './news'
 import { NewsActions } from '../types/news'
 import { AuthActions } from '../types/auth'
-import authReducer from './auth'
+import { authReducer } from './auth/index'
 
 const rootReducer = combineReducers({
 	news: newsReducer,

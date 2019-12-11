@@ -28,13 +28,13 @@ const IconLink = styled(Link)`
 `
 
 export const BottomNavBar: React.FC = (): JSX.Element => {
-	const username = useAuth()
+	const uid = useAuth()
 	return (
 		<BottomNav>
 			<IconLink to='/news'>
 				<IoMdBook />
 			</IconLink>
-			<IconLink to={username ? '/profile' : '/login'}>
+			<IconLink to={uid ? '/profile' : '/login'}>
 				<IoMdContact />
 			</IconLink>
 		</BottomNav>

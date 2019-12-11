@@ -9,11 +9,7 @@ interface IPrivateRouteProps extends RouteComponentProps {
 type Props = RouteComponentProps & IPrivateRouteProps
 
 export const PrivateRoute: React.FC<Props> = (props): JSX.Element => {
-	const username = useAuth()
+	const uid = useAuth()
 	const { as: Component, ...rest } = props
-	return username ? (
-		<Component {...rest} />
-	) : (
-		<Redirect from='' to='login' noThrow />
-	)
+	return uid ? <Component {...rest} /> : <Redirect from='' to='login' noThrow />
 }

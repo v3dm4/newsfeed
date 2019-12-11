@@ -1,7 +1,6 @@
 import { call as typedCall } from 'typed-redux-saga'
 import * as api from '../../api/index'
 import * as loginActions from '../actions/auth/login'
-import * as checkTokenActions from '../actions/auth/checkToken'
 import * as signUpActions from '../actions/auth/signUp'
 import { SagaIterator } from 'redux-saga'
 import * as types from '../actions/auth/authActionTypes'
@@ -30,21 +29,10 @@ export function* watchSignUp(): SagaIterator {
 	yield takeEvery(types.AUTH_SIGNUP_REQUEST, signUp)
 }
 
-export function* checkToken(): SagaIterator {
-	yield take(types.AUTH_CHECK_TOKEN)
-	const token = localStorage.getItem('token')
-	if (token === 'admin@mail.ru') {
-		yield put(loginActions.resolveLogin({ username: token }))
-	} else {
-		yield put(checkTokenActions.checkTokenReject())
-	}
-}
-
 function* authorize(payload: LoginParams): SagaIterator {
 	try {
 		const token = yield* typedCall(api.loginWithPassword, payload)
 		debugger
-		localStorage.setItem('token', 'admin@mail.ru')
 		// @ts-ignore
 		yield put(loginActions.resolveLogin(token))
 	} catch (err) {

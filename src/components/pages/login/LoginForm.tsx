@@ -12,13 +12,13 @@ import { useAuthProvider } from '../../../utils/hooks/useAuth'
 
 export const LoginForm: React.FC = (): JSX.Element => {
 	const [activeTab, setActiveTab] = React.useState('signIn')
-	const { username, login, signUp } = useAuthProvider()
+	const { uid, login, signUp } = useAuthProvider()
 
 	const initialValues: LoginParams = {
-		username: '',
+		email: '',
 		password: '',
 	}
-	return username ? (
+	return uid ? (
 		<Redirect to='/news' noThrow />
 	) : (
 		<Formik
@@ -37,7 +37,7 @@ export const LoginForm: React.FC = (): JSX.Element => {
 						/>
 					</Panel.Header>
 					<Panel.Content>
-						<Input id='username' name='username' type='email' label='Email' />
+						<Input id='email' name='email' type='email' label='Email' />
 						<Input
 							id='password'
 							name='password'

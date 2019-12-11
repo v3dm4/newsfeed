@@ -1,12 +1,10 @@
 import { loginModule } from './login'
 import { logoutModule } from './logout'
-import { checkTokenModule } from './checkToken'
 import { signUpModule } from './signUp'
 import { AuthState, AuthActions } from '../../types/auth'
 import * as types from '../../actions/auth/authActionTypes'
 
 const initialState: AuthState = {
-	username: null,
 	loading: false,
 }
 
@@ -22,8 +20,6 @@ export const authReducer = (
 			return loginModule(state, action)
 		case types.AUTH_LOGOUT_MODULE:
 			return logoutModule(state, action)
-		case types.AUTH_CHECK_TOKEN_MODULE:
-			return checkTokenModule(state, action)
 		case types.AUTH_SIGNUP_MODULE:
 			return signUpModule(state, action)
 		default:

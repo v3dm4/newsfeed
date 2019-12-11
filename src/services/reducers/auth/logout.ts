@@ -14,7 +14,6 @@ export const logoutModule = (
 		case types.AUTH_LOGOUT_RESOLVE:
 			return {
 				...state,
-				username: null,
 				loading: false,
 			}
 		case types.AUTH_LOGOUT_REJECT:

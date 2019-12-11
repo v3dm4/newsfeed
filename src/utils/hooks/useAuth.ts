@@ -1,30 +1,27 @@
-import { useSelector, shallowEqual, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../services/reducers'
-import { username } from '../../services/types/auth'
+import { uid } from '../../services/types/auth'
 import { login as loginAction } from '../../services/actions/auth/login'
 import { logout as logoutAction } from '../../services/actions/auth/logout'
-import {
-	signUp as signUpAction,
-	signUp,
-} from '../../services/actions/auth/signUp'
+import { signUp as signUpAction } from '../../services/actions/auth/signUp'
 import { LoginParams, SignUpParams } from '../../api/auth'
 
-const userSelector = (state: RootState) => state.auth
+const userSelector = (state: RootState) => state.firebase.auth.uid
 
-export const useAuth = (): username => {
-	const { username } = useSelector(userSelector, shallowEqual)
-	return username
+export const useAuth = (): uid => {
+	const uid = useSelector(userSelector)
+	return uid
 }
 
 export interface IUseAuthReturnType {
-	username: username
+	uid: uid
 	login: (params: LoginParams) => ReturnType<typeof loginAction>
 	logout: () => ReturnType<typeof logoutAction>
 	signUp: (params: SignUpParams) => ReturnType<typeof signUpAction>
 }
 
 export const useAuthProvider = (): IUseAuthReturnType => {
-	const username = useAuth()
+	const uid = useAuth()
 	const dispatch = useDispatch()
 
 	const login = (params: LoginParams) => dispatch(loginAction(params))
@@ -33,5 +30,5 @@ export const useAuthProvider = (): IUseAuthReturnType => {
 
 	const signUp = (params: SignUpParams) => dispatch(signUpAction(params))
 
-	return { username, login, logout, signUp }
+	return { uid, login, logout, signUp }
 }

@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import './App.css'
 import { Router } from '@reach/router'
 import { NavHOC as NavBar } from './components/layout/Nav/NavBar'
@@ -12,7 +11,6 @@ import {
 	IWindowSize,
 } from './utils/hooks/useWindowDimensions'
 import { PrivateRoute } from './utils/privateRoute'
-import { checkToken } from './services/actions/auth/checkToken'
 
 const NewsPage = React.lazy(() => import('./pages/news'))
 const ProfilePage = React.lazy(() => import('./pages/profile'))
@@ -50,11 +48,7 @@ export const AppContext = React.createContext<AppContext>({
 	changeTheme: () => {},
 })
 
-type DispatchProps = {
-	checkAuthToken: typeof checkToken
-}
-
-const App: React.FC<DispatchProps> = ({ checkAuthToken }): JSX.Element => {
+const App: React.FC = (): JSX.Element => {
 	const { size } = useWindowDimensions()
 	const [theme, setTheme] = React.useState(availableThemes.lightTheme)
 
@@ -63,29 +57,25 @@ const App: React.FC<DispatchProps> = ({ checkAuthToken }): JSX.Element => {
 		setTheme(theme)
 	}
 
-	React.useEffect(() => {
-		checkAuthToken()
-	}, [])
-
 	return (
 		<ErrorBoundary>
-      <AppContext.Provider value={{ size, changeTheme }}>
-        <ThemeProvider theme={theme}>
-          <NavBar />
-          <GlobalStyle />
-          <React.Suspense fallback={<div>...Loading</div>}>
-            <Content>
-              <Router>
-                <NewsPage path='/news' />
-                <PrivateRoute as={ProfilePage} path='/profile' />
-                <LoginPage path='/login' />
-              </Router>
-            </Content>
-          </React.Suspense>
-        </ThemeProvider>
-      </AppContext.Provider>
+			<AppContext.Provider value={{ size, changeTheme }}>
+				<ThemeProvider theme={theme}>
+					<NavBar />
+					<GlobalStyle />
+					<React.Suspense fallback={<div>...Loading</div>}>
+						<Content>
+							<Router>
+								<NewsPage path='/news' />
+								<PrivateRoute as={ProfilePage} path='/profile' />
+								<LoginPage path='/login' />
+							</Router>
+						</Content>
+					</React.Suspense>
+				</ThemeProvider>
+			</AppContext.Provider>
 		</ErrorBoundary>
 	)
 }
 
-export default connect(null, { checkAuthToken: checkToken })(App)
+export default App

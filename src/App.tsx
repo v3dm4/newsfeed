@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css'
-import { Router } from '@reach/router'
+import { Router, Redirect } from '@reach/router'
 import { NavHOC as NavBar } from './components/layout/Nav/NavBar'
 import { Content } from './components/layout/Content'
 import ErrorBoundary from './utils/ErrorBoundary'
@@ -69,6 +69,7 @@ const App: React.FC = (): JSX.Element => {
 								<NewsPage path='/news' />
 								<PrivateRoute as={ProfilePage} path='/profile' />
 								<LoginPage path='/login' />
+								<Redirect from='*' to='/news' noThrow />
 							</Router>
 						</Content>
 					</React.Suspense>

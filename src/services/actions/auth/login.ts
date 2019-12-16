@@ -8,10 +8,9 @@ export const login = (payload: LoginParams) =>
 		payload,
 	}
 
-export const resolveLogin = (payload: Partial<AuthState>) =>
+export const resolveLogin = () =>
 	<const>{
 		type: types.AUTH_LOGIN_RESOLVE,
-		payload,
 	}
 
 export const rejectLogin = (payload: Error) =>

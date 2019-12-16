@@ -21,7 +21,6 @@ function* signUp({
 }: ReturnType<typeof signUpActions.signUp>): SagaIterator {
 	try {
 		const result = yield* typedCall(api.signUpWithPassword, payload)
-		debugger
 	} catch (err) {}
 }
 
@@ -31,10 +30,8 @@ export function* watchSignUp(): SagaIterator {
 
 function* authorize(payload: LoginParams): SagaIterator {
 	try {
-		const token = yield* typedCall(api.loginWithPassword, payload)
-		debugger
-		// @ts-ignore
-		yield put(loginActions.resolveLogin(token))
+		yield* typedCall(api.loginWithPassword, payload)
+		yield put(loginActions.resolveLogin())
 	} catch (err) {
 		yield put(loginActions.rejectLogin(err))
 	} finally {

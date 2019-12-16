@@ -14,7 +14,6 @@ export const loginModule = (
 		case types.AUTH_LOGIN_RESOLVE:
 			return {
 				...state,
-				...action.payload,
 				loading: false,
 			}
 		case types.AUTH_LOGIN_REJECT:

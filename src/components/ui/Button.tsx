@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Button = styled.button`
 	background-color: ${props => props.theme.accent};
-	min-width: 70px;
+	min-width: 40px;
 	width: 100%;
 	height: 40px;
 	border: none;

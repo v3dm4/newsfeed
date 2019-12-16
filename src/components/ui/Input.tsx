@@ -2,8 +2,7 @@ import React, { InputHTMLAttributes } from 'react'
 import styled from 'styled-components'
 import { FormLabel } from '../ui/Form/FormLabel'
 import { FormElement } from '../ui/Form/FormElement'
-import { useField } from 'formik'
-import { ErrorMessage } from './ErrorMessage'
+import { FieldRenderProps } from 'react-final-form'
 
 export const StyledInput = styled.input`
 	outline: none;
@@ -26,12 +25,16 @@ interface IInputProps {
 	label?: string
 }
 
-const Input: React.FC<InputHTMLAttributes<HTMLInputElement> & IInputProps> = ({
+type Props = FieldRenderProps<string, HTMLInputElement> &
+	IInputProps &
+	InputHTMLAttributes<HTMLInputElement>
+
+const Input: React.FC<Props> = ({
 	label,
+	input,
+	meta,
 	...props
 }): JSX.Element => {
-	// Formik doesn't know how to escape that any workaround
-	const [field, meta] = useField<any>(props)
 	return (
 		<FormElement>
 			{label && (
@@ -39,8 +42,8 @@ const Input: React.FC<InputHTMLAttributes<HTMLInputElement> & IInputProps> = ({
 					<FormLabel htmlFor={props.id || props.name}>{label}</FormLabel>
 				</FormElement>
 			)}
-			<StyledInput {...field} {...props} />
-			{meta.touched && meta.error && <ErrorMessage>{meta.error}</ErrorMessage>}
+			<StyledInput {...input} {...props} />
+			{meta.touched && meta.error && <span>{meta.error}</span>}
 		</FormElement>
 	)
 }

@@ -52,8 +52,16 @@ const App: React.FC = (): JSX.Element => {
 	const { size } = useWindowDimensions()
 	const [theme, setTheme] = React.useState(availableThemes.lightTheme)
 
+	React.useEffect(() => {
+		const lsThemeValue = localStorage.getItem('theme')
+		if (lsThemeValue !== undefined && lsThemeValue !== null) {
+			changeTheme(JSON.parse(lsThemeValue))
+		}
+	}, [])
+
 	const changeTheme = (value: boolean) => {
 		const theme = value ? availableThemes.lightTheme : availableThemes.darkTheme
+		localStorage.setItem('theme', value.toString())
 		setTheme(theme)
 	}
 

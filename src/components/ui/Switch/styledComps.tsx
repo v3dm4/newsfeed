@@ -33,8 +33,8 @@ interface ISwitchIconProps {
 export const SwitchIcon = styled.div<ISwitchIconProps>`
 	position: absolute;
 	top: 50%;
-	width: 14px;
-	height: 14px;
+	width: 13px;
+	height: 12px;
 	user-select: none;
 	font-size: 10px;
 	line-height: normal;

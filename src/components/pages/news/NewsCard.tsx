@@ -10,7 +10,7 @@ const CardContainer = styled.div`
 	height: 400px;
 	overflow: hidden;
 	background-color: ${props => props.theme.bg};
-	border-radius: 15px;
+	border-radius: 10px;
 	box-shadow: ${props =>
 		props.theme.name !== 'light'
 			? `-20px 0 20px -20px ${props.theme.bsColor}, 20px 0 20px -20px ${props.theme.bsColor}`

@@ -3,6 +3,7 @@ import './App.css'
 import { Router, Redirect } from '@reach/router'
 import { NavHOC as NavBar } from './components/layout/Nav/NavBar'
 import { Content } from './components/layout/Content'
+import { FullPageSpinner } from './components/ui/Spinner/SpinnerFullPage'
 import ErrorBoundary from './utils/ErrorBoundary'
 import { ThemeProvider, createGlobalStyle } from 'styled-components'
 import * as availableThemes from './theme'
@@ -71,7 +72,7 @@ const App: React.FC = (): JSX.Element => {
 				<ThemeProvider theme={theme}>
 					<NavBar />
 					<GlobalStyle />
-					<React.Suspense fallback={<div>...Loading</div>}>
+					<React.Suspense fallback={<FullPageSpinner />}>
 						<Content>
 							<Router>
 								<NewsPage path='/news' />

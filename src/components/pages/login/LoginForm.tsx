@@ -9,6 +9,9 @@ import { LoginParams } from '../../../api/auth'
 import { Redirect } from '@reach/router'
 import { useAuthProvider } from '../../../utils/hooks/useAuth'
 import { Form, Field } from 'react-final-form'
+import { Spinner } from '../../ui/Spinner/Spinner'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../services/reducers'
 
 const validationSchema = {
 	required: (value: string) => (value ? undefined : 'Required'),
@@ -23,6 +26,7 @@ const validationSchema = {
 
 export const LoginForm: React.FC = (): JSX.Element => {
 	const [activeTab, setActiveTab] = React.useState('signIn')
+	const loading = useSelector((state: RootState) => state.auth.loading)
 	const { uid, login, signUp } = useAuthProvider()
 
 	const initialValues: LoginParams = {
@@ -37,47 +41,50 @@ export const LoginForm: React.FC = (): JSX.Element => {
 	return uid ? (
 		<Redirect to='/news' noThrow />
 	) : (
-		<Panel minWidth={360}>
-			<Panel.Header>
-				<Tabs
-					tabs={availableTabs}
-					activeTab={activeTab}
-					onChange={value => setActiveTab(value)}
-				/>
-				<Form
-					onSubmit={onSubmit}
-					subscription={{ pristine: true }}
-					initialValues={initialValues}
-				>
-					{({ handleSubmit }) => (
-						<form onSubmit={handleSubmit}>
-							<Panel.Content>
-								<Field<string>
-									id='email'
-									component={Input}
-									name='email'
-									type='email'
-									label='Email'
-									validate={validationSchema.required}
-								/>
-								<Field<string>
-									id='password'
-									name='password'
-									type='password'
-									label='Пароль'
-									component={Input}
-									validate={validationSchema.required}
-								/>
-								<FormElement margin='l'>
-									<Button type='submit'>
-										{activeTab === 'signIn' ? 'Войти' : 'Подтвердить'}
-									</Button>
-								</FormElement>
-							</Panel.Content>
-						</form>
-					)}
-				</Form>
-			</Panel.Header>
-		</Panel>
+		<>
+			<Panel minWidth={360}>
+				<Panel.Header>
+					<Tabs
+						tabs={availableTabs}
+						activeTab={activeTab}
+						onChange={value => setActiveTab(value)}
+					/>
+					<Form
+						onSubmit={onSubmit}
+						subscription={{ pristine: true }}
+						initialValues={initialValues}
+					>
+						{({ handleSubmit }) => (
+							<form onSubmit={handleSubmit}>
+								<Panel.Content>
+									<Field<string>
+										id='email'
+										component={Input}
+										name='email'
+										type='email'
+										label='Email'
+										validate={validationSchema.required}
+									/>
+									<Field<string>
+										id='password'
+										name='password'
+										type='password'
+										label='Пароль'
+										component={Input}
+										validate={validationSchema.required}
+									/>
+									<FormElement margin='l'>
+										<Button type='submit' disabled={loading}>
+											{activeTab === 'signIn' ? 'Войти' : 'Подтвердить'}
+										</Button>
+									</FormElement>
+								</Panel.Content>
+							</form>
+						)}
+					</Form>
+				</Panel.Header>
+			</Panel>
+			{loading && <Spinner />}
+		</>
 	)
 }

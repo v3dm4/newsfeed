@@ -23,4 +23,10 @@ export const Button = styled.button`
 	:hover {
 		opacity: 0.9;
 	}
+
+	:disabled {
+		background-color: ${props => props.theme.navText};
+		user-select: none;
+		cursor: not-allowed;
+	}
 `

@@ -10,6 +10,8 @@ export const lightTheme: DefaultTheme = {
 	navText: '#00000095',
 	bsColor: '#00000029',
 	accent: '#7cb1ff',
+	error: '#e41e1e',
+	success: '#3cb958',
 }
 
 export const darkTheme = {
@@ -22,4 +24,6 @@ export const darkTheme = {
 	text: '#fff',
 	bsColor: '#00000029',
 	accent: '#7cb1ff',
+	error: '#e41e1e',
+	success: '#3cb958',
 }

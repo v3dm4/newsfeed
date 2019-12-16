@@ -13,5 +13,7 @@ declare module 'styled-components' {
 		bgLight: string
 		nav: string
 		accent: string
+		error: string
+		success: string
 	}
 }

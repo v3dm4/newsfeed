@@ -5,6 +5,7 @@ import InfiniteLoader from 'react-window-infinite-loader'
 import { NewsElement } from '../../../services/types/news'
 import { NewsCard } from './NewsCard'
 import { ThemeContext } from 'styled-components'
+import { Spinner } from '../../ui/Spinner/Spinner'
 
 interface NewsListProps {
 	articles: { [key: string]: NewsElement }
@@ -44,7 +45,7 @@ export const NewsList: React.FC<NewsListProps> = ({
 						alignItems: 'center',
 					}}
 				>
-					Loading...
+					<Spinner />
 				</div>
 			)
 		}

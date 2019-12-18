@@ -1,6 +1,6 @@
 import React from 'react'
 import { Panel } from '../../ui/Panel/Panel'
-import Input from '../../ui/Input'
+import Input from '../../ui/Input/Input'
 import { Button } from '../../ui/Button'
 import { FormElement } from '../../ui/Form/FormElement'
 import { Tabs } from '../../ui/Tabs'
@@ -48,6 +48,7 @@ export const LoginForm: React.FC = (): JSX.Element => {
 							<form onSubmit={handleSubmit}>
 								<Panel.Content>
 									<Field<string>
+										disabled={loading}
 										id='email'
 										component={Input}
 										name='email'
@@ -59,6 +60,7 @@ export const LoginForm: React.FC = (): JSX.Element => {
 										)}
 									/>
 									<Field<string>
+										disabled={loading}
 										id='password'
 										name='password'
 										type='password'

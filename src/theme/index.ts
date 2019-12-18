@@ -11,7 +11,7 @@ export const lightTheme: DefaultTheme = {
 	bsColor: '#00000029',
 	accent: '#7cb1ff',
 	error: '#e41e1e',
-	lightError: '#a02929',
+	lightError: '#f59d9d',
 	success: '#3cb958',
 }
 

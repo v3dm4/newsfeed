@@ -12,17 +12,7 @@ import { Form, Field } from 'react-final-form'
 import { Spinner } from '../../ui/Spinner/Spinner'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../services/reducers'
-
-const validationSchema = {
-	required: (value: string) => (value ? undefined : 'Required'),
-	username: (value: string) => {
-		return !value
-			? 'Required'
-			: !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
-			? null
-			: 'Invalid email'
-	},
-}
+import { validators, combineValidators } from '../../../utils/validations'
 
 export const LoginForm: React.FC = (): JSX.Element => {
 	const [activeTab, setActiveTab] = React.useState('signIn')
@@ -63,7 +53,10 @@ export const LoginForm: React.FC = (): JSX.Element => {
 										name='email'
 										type='email'
 										label='Email'
-										validate={validationSchema.required}
+										validate={combineValidators(
+											validators.required,
+											validators.email
+										)}
 									/>
 									<Field<string>
 										id='password'
@@ -71,9 +64,12 @@ export const LoginForm: React.FC = (): JSX.Element => {
 										type='password'
 										label='Пароль'
 										component={Input}
-										validate={validationSchema.required}
+										validate={combineValidators(
+											validators.required,
+											validators.minLength(9)
+										)}
 									/>
-									<FormElement margin='l'>
+									<FormElement mt='l' mb='none'>
 										<Button type='submit' disabled={loading}>
 											{activeTab === 'signIn' ? 'Войти' : 'Подтвердить'}
 										</Button>

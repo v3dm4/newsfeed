@@ -11,10 +11,11 @@ export const lightTheme: DefaultTheme = {
 	bsColor: '#00000029',
 	accent: '#7cb1ff',
 	error: '#e41e1e',
+	lightError: '#a02929',
 	success: '#3cb958',
 }
 
-export const darkTheme = {
+export const darkTheme: DefaultTheme = {
 	name: 'dark',
 	bg: '#303030',
 	bgLight: '#424242',
@@ -25,5 +26,6 @@ export const darkTheme = {
 	bsColor: '#00000029',
 	accent: '#7cb1ff',
 	error: '#e41e1e',
+	lightError: '#a02929',
 	success: '#3cb958',
 }

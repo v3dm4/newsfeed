@@ -14,6 +14,7 @@ declare module 'styled-components' {
 		nav: string
 		accent: string
 		error: string
+		lightError: string
 		success: string
 	}
 }

@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 import { Panel } from '../../ui/Panel/Panel'
 import Input from '../../ui/Input/Input'
 import { Button } from '../../ui/Button'
@@ -13,6 +14,19 @@ import { Spinner } from '../../ui/Spinner/Spinner'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../services/reducers'
 import { validators, combineValidators } from '../../../utils/validations'
+
+
+const LFSpinnerWrapper = styled.div`
+  width: auto;
+  height: 50px;
+  margin-top: 30px;
+`
+
+const LFMessageWrapper = styled.div`
+  width: auto;
+  height: 50px;
+  margin-bottom: 30px;
+`
 
 export const LoginForm: React.FC = (): JSX.Element => {
 	const [activeTab, setActiveTab] = React.useState('signIn')
@@ -32,7 +46,9 @@ export const LoginForm: React.FC = (): JSX.Element => {
 		<Redirect to='/news' noThrow />
 	) : (
 		<>
-			<Panel minWidth={360}>
+      <LFMessageWrapper>
+      </LFMessageWrapper>  
+			<Panel minWidth={320}>
 				<Panel.Header>
 					<Tabs
 						tabs={availableTabs}
@@ -84,6 +100,9 @@ export const LoginForm: React.FC = (): JSX.Element => {
 					</Form>
 				</Panel.Content>
 			</Panel>
+      <LFSpinnerWrapper>
+        {loading && <Spinner />}
+      </LFSpinnerWrapper>
 		</>
 	)
 }

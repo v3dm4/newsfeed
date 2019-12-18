@@ -12,27 +12,14 @@ export interface ISpinnerProps {
 }
 
 export const Spinner: React.FC<ISpinnerProps> = (props): JSX.Element => {
-	const [show, setShow] = React.useState<boolean>(false)
-
-	React.useEffect(() => {
-		const timeout = setTimeout(() => show !== undefined && setShow(true), 1000)
-		return () => {
-			clearTimeout(timeout)
-		}
-	}, [])
-
 	return (
-		<>
-			{show && (
-				<Wrapper {...props}>
-					<BallsContainer {...props}>
-						<FirstBall {...props} />
-						<SecondBall {...props} />
-						<ThirdBall {...props} />
-					</BallsContainer>
-				</Wrapper>
-			)}
-		</>
+    <Wrapper {...props}>
+      <BallsContainer {...props}>
+        <FirstBall {...props} />
+        <SecondBall {...props} />
+        <ThirdBall {...props} />
+      </BallsContainer>
+    </Wrapper>
 	)
 }
 

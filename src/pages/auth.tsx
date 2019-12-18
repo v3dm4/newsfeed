@@ -5,7 +5,7 @@ import { PageContainer } from '../components/layout/PageContainer'
 
 const LoginPage: React.FC<RouteComponentProps> = () => {
 	return (
-		<PageContainer>
+		<PageContainer direction="column">
 			<LoginForm />
 		</PageContainer>
 	)

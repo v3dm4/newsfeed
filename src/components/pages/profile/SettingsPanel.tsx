@@ -6,7 +6,7 @@ import { AppContext } from '../../../App'
 export const SettingsPanel: React.FC = (): JSX.Element => {
 	const { size } = React.useContext(AppContext)
 	return (
-		<Panel minWidth={size === 's' ? 360 : '80%'}>
+		<Panel minWidth={size === 's' ? 320 : '80%'}>
 			<Panel.Header>НАСТРОЙКИ</Panel.Header>
 			<Panel.Content>
 				{size === 's' && (

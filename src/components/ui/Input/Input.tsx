@@ -3,9 +3,11 @@ import { FormLabel } from '../Form/FormLabel'
 import { FormElement } from '../Form/FormElement'
 import { FieldRenderProps } from 'react-final-form'
 import { StyledInput, InputError } from './styledComps'
+import { IMarginSizes } from '../Form/FormElement'
 
 interface IInputProps {
-	label?: string
+  label?: string
+  margin?: IMarginSizes
 }
 
 type Props = FieldRenderProps<string, HTMLInputElement> &
@@ -14,12 +16,13 @@ type Props = FieldRenderProps<string, HTMLInputElement> &
 
 const Input: React.FC<Props> = ({
 	label,
-	input,
+  input,
+  margin,
 	meta,
 	...props
 }): JSX.Element => {
 	return (
-		<FormElement>
+		<FormElement margin={margin}>
 			{label && (
 				<FormElement margin='s'>
 					<FormLabel htmlFor={props.id || props.name}>{label}</FormLabel>

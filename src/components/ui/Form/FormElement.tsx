@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-type IMarginSizes = 's' | 'm' | 'l' | 'none'
+export type IMarginSizes = 's' | 'm' | 'l' | 'none'
 
 interface IFormElementProps {
 	margin?: IMarginSizes

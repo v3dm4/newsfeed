@@ -13,6 +13,7 @@ export const PanelContainer = styled.div<IPanelProps>`
 	justify-content: flex-start;
 	border-radius: 6px;
 	box-shadow: 0 0 30px ${props => props.theme.bsColor};
+  position: relative;
 `
 
 export const PanelHeader = styled.div`

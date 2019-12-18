@@ -39,6 +39,8 @@ export const LoginForm: React.FC = (): JSX.Element => {
 						activeTab={activeTab}
 						onChange={value => setActiveTab(value)}
 					/>
+				</Panel.Header>
+				<Panel.Content>
 					<Form
 						onSubmit={onSubmit}
 						subscription={{ pristine: true }}
@@ -46,43 +48,42 @@ export const LoginForm: React.FC = (): JSX.Element => {
 					>
 						{({ handleSubmit }) => (
 							<form onSubmit={handleSubmit}>
-								<Panel.Content>
-									<Field<string>
-										disabled={loading}
-										id='email'
-										component={Input}
-										name='email'
-										type='email'
-										label='Email'
-										validate={combineValidators(
-											validators.required,
-											validators.email
-										)}
-									/>
-									<Field<string>
-										disabled={loading}
-										id='password'
-										name='password'
-										type='password'
-										label='Пароль'
-										component={Input}
-										validate={combineValidators(
-											validators.required,
-											validators.minLength(9)
-										)}
-									/>
-									<FormElement mt='l' mb='none'>
-										<Button type='submit' disabled={loading}>
-											{activeTab === 'signIn' ? 'Войти' : 'Подтвердить'}
-										</Button>
-									</FormElement>
-								</Panel.Content>
+								<Field<string>
+									disabled={loading}
+									margin='l'
+									id='email'
+									component={Input}
+									name='email'
+									type='email'
+									label='Email'
+									validate={combineValidators(
+										validators.required,
+										validators.email
+									)}
+								/>
+								<Field<string>
+									disabled={loading}
+									margin='l'
+									id='password'
+									name='password'
+									type='password'
+									label='Пароль'
+									component={Input}
+									validate={combineValidators(
+										validators.required,
+										validators.minLength(9)
+									)}
+								/>
+								<FormElement mt='l' mb='none'>
+									<Button type='submit' disabled={loading}>
+										{activeTab === 'signIn' ? 'Войти' : 'Подтвердить'}
+									</Button>
+								</FormElement>
 							</form>
 						)}
 					</Form>
-				</Panel.Header>
+				</Panel.Content>
 			</Panel>
-			{loading && <Spinner />}
 		</>
 	)
 }

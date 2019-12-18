@@ -5,7 +5,7 @@ export const InputError = styled.div`
 	font-size: 11px;
 	font-weight: 500;
 	color: ${props => props.theme.error};
-	top: 72px;
+	top: 65px;
 `
 interface IStyledInputProps {
 	error?: string

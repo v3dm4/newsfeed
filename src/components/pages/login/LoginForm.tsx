@@ -47,7 +47,7 @@ export const LoginForm: React.FC = (): JSX.Element => {
 	) : (
 		<>
 			<LFMessageWrapper>
-				{error && <ErrorMessage>{JSON.stringify(error)}</ErrorMessage>}
+				{error && <ErrorMessage>{error}</ErrorMessage>}
 			</LFMessageWrapper>
 			<Panel minWidth={320}>
 				<Panel.Header>

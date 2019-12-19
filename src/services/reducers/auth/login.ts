@@ -10,6 +10,7 @@ export const loginModule = (
 			return {
 				...state,
 				loading: true,
+				error: undefined,
 			}
 		case types.AUTH_LOGIN_RESOLVE:
 			return {

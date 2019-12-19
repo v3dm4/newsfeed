@@ -13,28 +13,16 @@ export const loginWithPassword = async ({
 	email,
 	password,
 }: LoginParams): Promise<firebase.auth.UserCredential> => {
-	try {
-		return await firebase.auth().signInWithEmailAndPassword(email, password)
-	} catch (err) {
-		throw new Error(err)
-	}
+	return await firebase.auth().signInWithEmailAndPassword(email, password)
 }
 
 export const signUpWithPassword = async ({
 	email,
 	password,
 }: SignUpParams): Promise<firebase.auth.UserCredential> => {
-	try {
-		return await firebase.auth().createUserWithEmailAndPassword(email, password)
-	} catch (err) {
-		throw new Error(err)
-	}
+	return await firebase.auth().createUserWithEmailAndPassword(email, password)
 }
 
 export const logout = async (): Promise<void> => {
-	try {
-		return await firebase.auth().signOut()
-	} catch (err) {
-		throw new Error(err)
-	}
+	return await firebase.auth().signOut()
 }

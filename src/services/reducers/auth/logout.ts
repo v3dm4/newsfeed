@@ -10,6 +10,7 @@ export const logoutModule = (
 			return {
 				...state,
 				loading: true,
+				error: undefined,
 			}
 		case types.AUTH_LOGOUT_RESOLVE:
 			return {

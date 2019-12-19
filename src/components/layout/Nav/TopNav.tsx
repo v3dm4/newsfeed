@@ -34,7 +34,7 @@ export const TopNavBar: React.FC = (): JSX.Element => {
 			) : (
 				<TextLink to='/login'>Логин</TextLink>
 			)}
-			<ThemeSwitcher />
+			<ThemeSwitcher label={false} />
 		</TopNav>
 	)
 }

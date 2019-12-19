@@ -14,6 +14,7 @@ import {
 	takeEvery,
 } from 'redux-saga/effects'
 import { LoginParams } from '../../api/auth'
+import { putError } from '../../utils/errors/putError'
 
 function* logout(): SagaIterator {
 	try {
@@ -43,7 +44,7 @@ function* authorize(payload: LoginParams): SagaIterator {
 		yield* typedCall(api.loginWithPassword, payload)
 		yield put(loginActions.resolveLogin())
 	} catch (err) {
-		yield put(loginActions.rejectLogin(err))
+		yield putError(loginActions.rejectLogin, err)
 	} finally {
 		if (yield cancelled()) {
 			yield put(

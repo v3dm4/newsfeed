@@ -10,6 +10,7 @@ export const signUpModule = (
 			return {
 				...state,
 				loading: true,
+				error: undefined,
 			}
 		case types.AUTH_SIGNUP_RESOLVE:
 			return {

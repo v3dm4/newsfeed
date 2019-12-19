@@ -1,12 +1,12 @@
 import React, { HTMLAttributes } from 'react'
 import { Background, Toggler, SwitchIcon } from './styledComps'
 
-interface ISwitchProps {
+export interface ISwitchProps {
 	value: boolean
 	onChange: (value: boolean) => void
 }
 
-interface ISwitchComposition {
+export interface ISwitchComposition {
 	On: React.FC<HTMLAttributes<HTMLDivElement>>
 	Off: React.FC<HTMLAttributes<HTMLDivElement>>
 }
@@ -42,12 +42,16 @@ const useSwitchContext = () => {
 	return ctx
 }
 
-const On: React.FC<HTMLAttributes<HTMLDivElement>> = ({ children }): JSX.Element | null => {
+const On: React.FC<HTMLAttributes<HTMLDivElement>> = ({
+	children,
+}): JSX.Element | null => {
 	const state = useSwitchContext()
 	return state ? <SwitchIcon side='right'>{children}</SwitchIcon> : null
 }
 
-const Off: React.FC<HTMLAttributes<HTMLDivElement>> = ({ children }): JSX.Element | null => {
+const Off: React.FC<HTMLAttributes<HTMLDivElement>> = ({
+	children,
+}): JSX.Element | null => {
 	const state = useSwitchContext()
 	return state ? null : <SwitchIcon side='left'>{children}</SwitchIcon>
 }

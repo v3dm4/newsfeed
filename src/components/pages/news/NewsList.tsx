@@ -39,10 +39,11 @@ export const NewsList: React.FC<NewsListProps> = ({
 						...style,
 						left: '50%',
 						transform: 'translateX(-50%)',
-						width: '100px',
+						width: '100%',
 						height: '400px',
 						display: 'flex',
 						alignItems: 'center',
+						justifyContent: 'center',
 					}}
 				>
 					<Spinner />

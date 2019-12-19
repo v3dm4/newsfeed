@@ -21,6 +21,7 @@ export const signUpModule = (
 			return {
 				...state,
 				loading: false,
+				error: action.payload,
 			}
 		default:
 			return state

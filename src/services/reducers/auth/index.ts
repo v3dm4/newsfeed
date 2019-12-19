@@ -6,6 +6,7 @@ import * as types from '../../actions/auth/authActionTypes'
 
 const initialState: AuthState = {
 	loading: false,
+	error: undefined,
 }
 
 //TODO: need to search: is it exist another approach for splitting like that

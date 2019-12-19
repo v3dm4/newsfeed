@@ -28,7 +28,7 @@ const IconLink = styled(Link)`
 `
 
 export const BottomNavBar: React.FC = (): JSX.Element => {
-	const uid = useAuth()
+	const { uid } = useAuth()
 	return (
 		<BottomNav>
 			<IconLink to='/news'>

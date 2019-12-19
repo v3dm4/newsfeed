@@ -20,6 +20,7 @@ export const logoutModule = (
 			return {
 				...state,
 				loading: false,
+				error: action.payload,
 			}
 		default:
 			return state

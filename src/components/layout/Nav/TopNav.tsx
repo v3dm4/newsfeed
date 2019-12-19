@@ -25,7 +25,7 @@ const TextLink = styled(Link)`
 `
 
 export const TopNavBar: React.FC = (): JSX.Element => {
-	const uid = useAuth()
+	const { uid } = useAuth()
 	return (
 		<TopNav>
 			<TextLink to='/news'>Новости</TextLink>

@@ -13,6 +13,7 @@ export type uid = string | null
 
 export interface AuthState {
 	loading: boolean
+	error?: Error
 }
 
 export type AuthActions = ReturnType<InferValueTypes<typeof combinedActions>>

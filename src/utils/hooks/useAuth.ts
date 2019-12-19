@@ -8,20 +8,28 @@ import { LoginParams, SignUpParams } from '../../api/auth'
 
 const userSelector = (state: RootState) => state.firebase.auth.uid
 
-export const useAuth = (): uid => {
-	const uid = useSelector(userSelector)
-	return uid
-}
+const authStateSelector = (state: RootState) => state.auth
 
 export interface IUseAuthReturnType {
 	uid: uid
+	loading: boolean
+	error?: Error
+}
+
+export const useAuth = (): IUseAuthReturnType => {
+	const uid = useSelector(userSelector)
+	const { loading, error } = useSelector(authStateSelector)
+	return { uid, loading, error }
+}
+
+export interface IUseAuthProviderReturnType extends IUseAuthReturnType {
 	login: (params: LoginParams) => ReturnType<typeof loginAction>
 	logout: () => ReturnType<typeof logoutAction>
 	signUp: (params: SignUpParams) => ReturnType<typeof signUpAction>
 }
 
-export const useAuthProvider = (): IUseAuthReturnType => {
-	const uid = useAuth()
+export const useAuthProvider = (): IUseAuthProviderReturnType => {
+	const { uid, error, loading } = useAuth()
 	const dispatch = useDispatch()
 
 	const login = (params: LoginParams) => dispatch(loginAction(params))
@@ -30,5 +38,5 @@ export const useAuthProvider = (): IUseAuthReturnType => {
 
 	const signUp = (params: SignUpParams) => dispatch(signUpAction(params))
 
-	return { uid, login, logout, signUp }
+	return { uid, login, logout, signUp, error, loading }
 }

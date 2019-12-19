@@ -5,7 +5,10 @@ export interface IPanelProps {
 }
 
 export const PanelContainer = styled.div<IPanelProps>`
-	min-width: ${props => typeof props.minWidth === 'string' ? props.minWidth : props.minWidth + 'px'};
+	min-width: ${props =>
+		typeof props.minWidth === 'string'
+			? props.minWidth
+			: props.minWidth + 'px'};
 	width: auto;
 	background-color: ${props => props.theme.bgLight};
 	display: flex;
@@ -13,12 +16,13 @@ export const PanelContainer = styled.div<IPanelProps>`
 	justify-content: flex-start;
 	border-radius: 6px;
 	box-shadow: 0 0 30px ${props => props.theme.bsColor};
-  position: relative;
+	position: relative;
 `
 
 export const PanelHeader = styled.div`
 	width: 100%;
 	height: auto;
+	box-sizing: border-box;
 `
 
 export const PanelContent = styled.div`

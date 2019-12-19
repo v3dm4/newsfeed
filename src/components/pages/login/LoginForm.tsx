@@ -14,24 +14,24 @@ import { Spinner } from '../../ui/Spinner/Spinner'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../services/reducers'
 import { validators, combineValidators } from '../../../utils/validations'
-
+import { ErrorMessage } from '../../ui/ErrorMessage'
 
 const LFSpinnerWrapper = styled.div`
-  width: auto;
-  height: 50px;
-  margin-top: 30px;
+	width: auto;
+	height: 50px;
+	margin-top: 30px;
 `
 
 const LFMessageWrapper = styled.div`
-  width: auto;
-  height: 50px;
-  margin-bottom: 30px;
+	width: auto;
+	height: 50px;
+	margin-bottom: 30px;
 `
 
 export const LoginForm: React.FC = (): JSX.Element => {
 	const [activeTab, setActiveTab] = React.useState('signIn')
 	const loading = useSelector((state: RootState) => state.auth.loading)
-	const { uid, login, signUp } = useAuthProvider()
+	const { uid, login, signUp, error } = useAuthProvider()
 
 	const initialValues: LoginParams = {
 		email: '',
@@ -46,8 +46,9 @@ export const LoginForm: React.FC = (): JSX.Element => {
 		<Redirect to='/news' noThrow />
 	) : (
 		<>
-      <LFMessageWrapper>
-      </LFMessageWrapper>  
+			<LFMessageWrapper>
+				{error && <ErrorMessage>{JSON.stringify(error)}</ErrorMessage>}
+			</LFMessageWrapper>
 			<Panel minWidth={320}>
 				<Panel.Header>
 					<Tabs
@@ -100,9 +101,7 @@ export const LoginForm: React.FC = (): JSX.Element => {
 					</Form>
 				</Panel.Content>
 			</Panel>
-      <LFSpinnerWrapper>
-        {loading && <Spinner />}
-      </LFSpinnerWrapper>
+			<LFSpinnerWrapper>{loading && <Spinner />}</LFSpinnerWrapper>
 		</>
 	)
 }

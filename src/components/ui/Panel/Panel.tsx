@@ -8,7 +8,7 @@ import {
 
 interface IPanelComposition {
 	Content: React.FC<HTMLAttributes<HTMLDivElement> & IPanelProps>
-	Header: React.FC
+	Header: React.FC<HTMLAttributes<HTMLDivElement>>
 }
 
 export const Panel: React.FC<IPanelProps> & IPanelComposition = ({
